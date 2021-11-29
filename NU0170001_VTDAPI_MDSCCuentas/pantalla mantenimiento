@@ -1,0 +1,17 @@
+[11:38 AM] Duban Alexis Cano Tabares
+    
+
+v1 - istio
+curl https://aw0937001-vtdapimantenimiento.transversales-experiencia-digital-pdn/API.Mantenimiento/rest/servicio/validateWindow?productId=tarjetas
+interna
+curl https://financiacion-int.apps.bancolombia.com/transversales-experiencia-digital/API.Mantenimiento/rest/servicio/validateWindow?productId=tarjetas
+
+​[11:38 AM] Duban Alexis Cano Tabares
+    
+
+{​​​​​​​​"detail":"mantenimiento","output":true,"status":"success"}​​​​​​​​
+{​​​​​​​​"detail":"contingencia","output":true,"status":"success"}​​​​​​​​
+{​​​​​​​​"output":false,"status":"success"}​​​​​​​​
+
+​[11:39 AM] Duban Alexis Cano Tabares
+    https://accesodigital-qa.apps.ambientesbc.com/AdminVentana/ventanas

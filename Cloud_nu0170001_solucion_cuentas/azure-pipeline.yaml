@@ -1,0 +1,128 @@
+
+resources:
+  repositories:
+  - repository: Cloud_AWS_Templates
+    type: git
+    ref: refs/heads/trunk
+    name: Cloud_AWS_Templates
+  
+  - repository: Template_DevSecOps_IaC
+    type: git
+    ref: refs/heads/trunk
+    name: Template_DevSecOps_IaC
+
+trigger:
+  branches:
+    include:
+      - trunk
+
+variables:
+  application-code: 'nu0170001'
+  project-name: 'modulo-solucion-cuentas'
+  pmo: 'pmo27286'
+  cost-center: 'c102000040'
+  business-service: 'productos-de-financiacion'
+  cloudformation-template: '$(System.DefaultWorkingDirectory)/template.yaml' #ubicacion del template de cloudformation dentro de la carpeta del proyecto
+  cloudformation-params: '$(System.DefaultWorkingDirectory)/params.json' #ubicacion del archivo de parametros dentro de la carpeta del proyecto
+  namespace: $(project-name)
+  ruta: $(project-name)
+  elbtype: 'all'
+  monitordynatrace: true
+  istio-injection: disabled
+
+
+stages:
+  - stage: linters 
+    displayName: Validations
+    jobs:
+    - template: /aw0000_cloud/templates/job-templates/validations.yaml@Cloud_AWS_Templates
+
+  - stage: code_scan_iac_dev
+    displayName: Code Scan IaC Dev
+    variables:
+    - group: 'nu0170001-modulo-solucion-cuentas-dev-aws'
+    - name: env
+      value: dev
+    jobs:
+      - template: validations.yaml@Template_DevSecOps_IaC
+        parameters:
+          resources: ['']
+
+  - stage: code_scan_iac_pdn
+    displayName: Code Scan IaC Pdn
+    variables:
+    - group: 'nu0170001-modulo-solucion-cuentas-pdn-aws'
+    - name: env
+      value: pdn
+    jobs:
+      - template: validations.yaml@Template_DevSecOps_IaC
+        parameters:
+          resources: ['']
+
+  - stage: code_scan_iac_qa
+    dependsOn: [linters,deploy_dev]
+    displayName: Code Scan IaC Qa
+    variables:
+      - group: 'nu0170001-modulo-solucion-cuentas-qa-aws'
+      - name: env
+        value: qa
+    jobs:
+      - template: validations.yaml@Template_DevSecOps_IaC
+        parameters:
+          resources: ['']
+
+  - stage: deploy_dev
+    displayName: Deploy dev
+    dependsOn: [linters,code_scan_iac_dev]
+    variables:
+    - group: 'nu0170001-modulo-solucion-cuentas-dev-aws'
+    - name: stack-name
+      value: '$(application-code)-$(project-name)-$(env)-stack'
+    - name: env
+      value: 'dev'
+    jobs:  
+    - template: /aw0000_cloud/templates/job-templates/deployment.yaml@Cloud_AWS_Templates
+      parameters:
+        account: bancolombia-productos-financiacion-dev-aws
+        eks: true
+        deploy_ou: true
+        eksaccount: productos-de-financiacion-dev
+        env: dev
+
+  - stage: deploy_qa
+    #condition: false #Para que no se despliegue en qa
+    displayName: Deploy qa
+    dependsOn: [linters,code_scan_iac_qa]
+    variables:
+    - group: 'nu0170001-modulo-solucion-cuentas-qa-aws'
+    - name: stack-name
+      value: '$(application-code)-$(project-name)-$(env)-stack'
+    - name: env
+      value: 'qa'  
+    jobs:  
+    - template: /aw0000_cloud/templates/job-templates/deployment.yaml@Cloud_AWS_Templates
+      parameters:
+        account: bancolombia-productos-financiacion-qa-aws
+        eks: true
+        deploy_ou: true
+        eksaccount: productos-de-financiacion-qa
+        env: qa
+
+  - stage: deploy_pdn
+    #  condition: false #Para que no se despliegue en pdn
+    displayName: Deploy PDN
+    dependsOn: [linters,code_scan_iac_pdn]
+    variables:
+    - group: 'nu0170001-modulo-solucion-cuentas-pdn-aws'
+    - name: stack-name
+      value: '$(application-code)-$(project-name)-$(env)-stack'
+    - name: env
+      value: 'pdn'
+    jobs:  
+    - template: /aw0000_cloud/templates/job-templates/deployment.yaml@Cloud_AWS_Templates
+      parameters:
+        account: bancolombia-productos-financiacion-pdn-aws
+        eks: true
+        deploy_ou: true
+        eksaccount: productos-de-financiacion-pdn
+        env: pdn

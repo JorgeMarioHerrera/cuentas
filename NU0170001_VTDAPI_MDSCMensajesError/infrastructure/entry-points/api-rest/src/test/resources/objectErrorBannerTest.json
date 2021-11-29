@@ -1,0 +1,20 @@
+    {
+      "applicationId": "ATD",
+      "errorCode": "BANNER",
+      "errorDescription": {
+        "errorType": "técnico",
+        "errorService": "Api_Mensajes_De_Error",
+        "errorOperation": "banner",
+        "exceptionType": "Excepciones de Sistema",
+        "functionalCode": "BANNER",
+        "functionalDescription": "23:59|5:30",
+        "technicalDescription": "true",
+        "msnIsDefault": false
+      }
+    }
+
+
+
+
+
+

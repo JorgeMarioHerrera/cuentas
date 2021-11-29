@@ -1,0 +1,211 @@
+
+[
+  {
+      "ParameterKey": "DeployECR",
+      "ParameterValue": "#{deploy-ecr}#"
+  },
+  {
+      "ParameterKey": "DeployRDS",
+      "ParameterValue": "#{deploy-rds}#"
+  },
+  {
+      "ParameterKey": "DeployEKS",
+      "ParameterValue": "#{deploy-eks}#"
+  },
+  {
+      "ParameterKey": "DeployCloudFront",
+      "ParameterValue": "#{deploy-cloud-front}#"
+  },
+  {
+      "ParameterKey": "DeployWAF",
+      "ParameterValue": "#{deploy-waf}#"
+  },
+  {
+      "ParameterKey": "DeploySQS",
+      "ParameterValue": "#{deploy-sqs}#"
+  },
+  {
+      "ParameterKey": "project",
+      "ParameterValue": "#{project-name}#"
+  },
+  {
+      "ParameterKey": "environment",
+      "ParameterValue": "#{env}#"
+  },
+  {
+      "ParameterKey": "DeployElasticCache",
+      "ParameterValue": "#{deploy-elastic-cache}#"
+  },
+  {
+      "ParameterKey": "applicationcode",
+      "ParameterValue": "#{application-code}#"
+  },
+  {
+      "ParameterKey": "pmo",
+      "ParameterValue": "#{pmo}#"
+  },
+  {
+      "ParameterKey": "costcenter",
+      "ParameterValue": "#{cost-center}#"
+  },
+  {
+      "ParameterKey": "businessservice",
+      "ParameterValue": "#{business-service}#"
+  }, 
+  {
+      "ParameterKey": "DBName",
+      "ParameterValue": "#{rds-db-name}#"
+  },
+  {
+      "ParameterKey": "DBSnapshot",
+      "ParameterValue": "#{rds-db-snapshot}#"
+  },
+  {
+      "ParameterKey": "AllocatedStorage",
+      "ParameterValue": "#{rds-allocated-storage}#"
+  },
+  {
+      "ParameterKey": "UsuarioConexion",
+      "ParameterValue": "#{rds-conection-user}#"
+  },
+  {
+      "ParameterKey": "Engine",
+      "ParameterValue": "#{rds-engine}#"
+  },
+  {
+      "ParameterKey": "IpFluid",
+      "ParameterValue": "#{rds-fluid-ip}#"
+  },
+  {
+      "ParameterKey": "IpAdicional",
+      "ParameterValue": "#{rds-aditional-ip}#"
+  },
+  {
+      "ParameterKey": "EksStackName",
+      "ParameterValue": "#{rds-eks-stack-name}#"
+  },
+  {
+      "ParameterKey": "domainname",
+      "ParameterValue": "#{cf-domain-name}#"
+  },
+  {
+      "ParameterKey": "buckets3",
+      "ParameterValue": "#{cf-buckets3-name}#"
+  },
+  {
+      "ParameterKey": "acmcertificatearn",
+      "ParameterValue": "#{acm-certificate-arn}#"
+  },
+  {
+      "ParameterKey": "FrontInterno",
+      "ParameterValue": "#{cf-solo-acceso-red-interna}#"
+    },
+    {
+      "ParameterKey": "QueueName",
+      "ParameterValue": "#{sqs-queue-name}#"
+    },
+    {
+      "ParameterKey": "QueueType",
+      "ParameterValue": "#{sqs-queue-type}#"
+    },
+    {
+      "ParameterKey": "DelaySeconds",
+      "ParameterValue": "#{sqs-delay-seconds}#"
+    },
+    {
+      "ParameterKey": "MessageRetentionPeriod",
+      "ParameterValue": "#{sqs-message-retention-period}#"
+    },
+    {
+      "ParameterKey": "MaximumMessageSize",
+      "ParameterValue": "#{sqs-maximum-message-size}#"
+    },
+    {
+      "ParameterKey": "CacheEngine",
+      "ParameterValue": "#{ec-cache-engine}#"
+    },
+    {
+      "ParameterKey": "CacheNodes",
+      "ParameterValue": "#{ec-cache-nodes}#"
+    },
+    {
+      "ParameterKey": "namespace",
+      "ParameterValue": "#{namespace}#"
+    },
+    {
+      "ParameterKey": "EksIdSecurityGroup",
+      "ParameterValue": "#{eks-id-security-group}#"
+    },
+    {
+      "ParameterKey": "DeployAttachment",
+      "ParameterValue": "#{deploy-attachment}#"
+    },
+    {
+      "ParameterKey": "TagsClasInfoSegCID",
+      "ParameterValue": "#{tags-clas-info-seguridad-cid}#"
+    },
+    {
+      "ParameterKey": "DBNameDatical",
+      "ParameterValue": "#{rds-db-name-datical}#"
+    },
+    {
+      "ParameterKey": "clusterid",
+      "ParameterValue": "#{cluster-id}#"
+    },
+    {
+      "ParameterKey": "MaxAllocatedStorage",
+      "ParameterValue": "#{rds-max-allocated-storage}#"
+    },
+    {
+      "ParameterKey": "DynamoThroughputReadCapacity",
+      "ParameterValue": "#{dynamo-throughput-read-capacity}#"
+    },
+    {
+      "ParameterKey": "DynamoThroughputWriteCapacity",
+      "ParameterValue": "#{dynamo-throughput-write-capacity}#"
+    },
+    {
+      "ParameterKey": "buckets3LZ",
+      "ParameterValue": "#{cf-buckets3-lz-name}#"
+    },
+    {
+      "ParameterKey": "FirehoseStreamName",
+      "ParameterValue": "#{firehose-stream-name}#"
+    },
+    {
+      "ParameterKey": "FirehoseIntervalInSeconds",
+      "ParameterValue": "#{firehose-interval-in-seconds}#"
+    },
+    {
+      "ParameterKey": "FirehoseSizeInMBs",
+      "ParameterValue": "#{firehose-size-in-mbs}#"
+    },
+    {
+        "ParameterKey": "LzReportHead",
+        "ParameterValue": "#{lz_report_head}#"
+    },
+    {
+        "ParameterKey": "DestinationBucketAccountID",
+        "ParameterValue": "#{destinationBucketAccountID}#"
+    },
+    {
+        "ParameterKey": "DestinationBucketARN",
+        "ParameterValue": "#{destinationBucketARN}#"
+    },
+    {
+        "ParameterKey": "AccountID",
+        "ParameterValue": "#{aws-account}#"
+    },
+    {
+        "ParameterKey": "buckets3CatalogLZ",
+        "ParameterValue": "#{aws-buckets3CatalogLZ}#"
+    },
+    {
+        "ParameterKey": "FirehoseStreamCatalogName",
+        "ParameterValue": "#{aws-FirehoseStreamCatalogName}#"
+    },
+    {
+        "ParameterKey": "LzReportHeadCatalog",
+        "ParameterValue": "#{aws-LzReportHeadCatalog}#"
+    }
+]

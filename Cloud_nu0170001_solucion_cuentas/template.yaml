@@ -1,0 +1,1035 @@
+
+  AWSTemplateFormatVersion: '2010-09-09'
+  Description: Archivo para el despliegue como codigo de la infraestructura de la arquitectura de referencia
+
+  # Definicion de parametros
+  Parameters:
+
+    #Despliegue de componentes
+    DeployECR:
+      Description: Define si se despliega ECR (si/no)
+      Type: String
+    DeployRDS:
+      Description: Define si se despliega RDS (si/no)
+      Type: String
+    DeployEKS:
+      Description: Define si se despliega EKS (si/no)
+      Type: String
+    DeployCloudFront:
+      Description: Define si se despliega CloudFront (si/no)
+      Type: String
+    DeployWAF:
+      Description: Define si se despliega WAF (si/no)
+      Type: String
+    DeploySQS:
+      Description: Define si se despliega SQS (si/no)
+      Type: String
+    DeployElasticCache:
+      Description: Define si se desplegar Elastic Cache (si/no)
+      Type: String
+    DeployAttachment:
+      Description: Define si se despliegan los attachment de los secretos hacia la RDS (si/no)
+      Type: String
+
+    #Generales
+    project:
+      Description: Nombre del proyecto.
+      Type: String
+    environment:
+      Description: Ambiente donde se despliega.
+      Type: String
+    applicationcode:
+      Description: Codigo AW de la aplicacion.
+      Type: String
+    pmo:
+      Description: PMO del proyecto de la aplicacion
+      Type: String
+    costcenter:
+      Description: Centro de costos
+      Type: String
+    businessservice:
+      Description: Nombre del componente mayor al que pertenece la aplicacion
+      Type: String
+
+    # RDS
+    DBName:
+      Description: Nombre de la base de datos.
+      Type: String
+    DBSnapshot:
+      Description: Snapshot para restauracion
+      Type: String
+    AllocatedStorage:
+      Description: Tamano del almacenamiento en GB.
+      Type: String
+    MaxAllocatedStorage:
+      Description: Tamano del almacenamiento en GB.
+      Type: String
+    UsuarioConexion:
+      Description: Nombre del usuario de conexion de la BD.
+      Type: String
+    Engine:
+      Description: El motor de base de datos que utiliza la instancia de base de datos.
+      Type: String
+    IpFluid:
+      Description: Ip que le permite el acceso a Fluid para pruebas.
+      Type: String
+    IpAdicional:
+      Description: Ip para permitir un acceso adicional
+      Type: String
+    EksStackName:
+      Description: Nombre del stack que despliega el cluster de k8s
+      Type: String
+
+    # CloudFront
+    domainname:
+      Description: Dominio del sitio web
+      Type: String
+    buckets3:
+      Description: Nombre del bucket donde se almacena el contenido estatico del sitio web
+      Type: String
+    acmcertificatearn:
+      Description: ARN del certificado digital (para ambiente de produccion)
+      Type: String
+    #VersionedLambdaFunction:
+      #Description: ARN de Lambda Edge que agrega cabeceras de seguridad
+      #Type: String
+    EksIdSecurityGroup:
+      Type: String
+      Description: Id del security group del cluster de EKS
+    DBNameDatical:
+      Description: Nombre de la base de datos para datical.
+      Type: String
+    ssmDBSGTransversal:
+      Type: AWS::SSM::Parameter::Value<String>
+      Default: lz_DbSgTransversal
+    FrontInterno:
+      Description: Define si el front que se va a desplegar es interno (si/no)
+      Type: String
+    QueueName:
+      Description: Nombre de la cola de SQS
+      Type: String
+    QueueType:
+      Description: Tipo de la cola (fifo o estandard)
+      Type: String
+    DelaySeconds:
+      Description: tiempo en segundos durante el que se retrasa la entrega de todos los mensajes de la cola
+      Type: String
+    MessageRetentionPeriod:
+      Description: número de segundos durante los que Amazon SQS conserva un mensaje
+      Type: String
+    MaximumMessageSize:
+      Description: limite del número de bytes que puede contener un mensaje antes de Amazon SQS lo rechace
+      Type: String
+
+    # Elastic cache
+    LandingZoneStackName:
+      Type: "AWS::SSM::Parameter::Value<String>"
+      Default: VPCStackName
+    CacheEngine:
+      Description: motor del cluster de elastic cache
+      Type: String
+    CacheNodes:
+      Description: cantidad de nodos para el cluster de elastic cache
+      Type: String
+    PrivateBSubnetIds:
+      Type: 'AWS::SSM::Parameter::Value<String>'
+      Default: PrivateBSubnetIds
+    TagsClasInfoSegCID:
+      Description: valor de la url del issuer donde se validara el token
+      Type: String
+
+    #EKS
+    namespace:
+      Description: nombre del namespace para el proyecto
+      Type: String
+    clusterid:
+      Description: Id Cluster de Kubernetes
+      Type: String
+
+    #Dynamo
+    DynamoThroughputReadCapacity:
+      Description: valor de la capacidad de lectura (Rendimiento aprovisionado)
+      Type: String
+    DynamoThroughputWriteCapacity:
+      Description: valor de la capacidad de escritura (Rendimiento aprovisionado)
+      Type: String
+
+    #Bucket S3
+    buckets3LZ:
+      Description: Nombre del bucket donde se almacena el contenido de logs funcionales requeridos por la LZ
+      Type: String
+    
+    #Bucket S3 Catalog
+    buckets3CatalogLZ:
+      Description: Nombre del bucket donde se almacena el contenido de logs funcionales de los Catalogos LZ
+      Type: String      
+    
+    #Bucket S3 replica
+    DestinationBucketAccountID:
+      Description: Numero de cuenta de LZ donde sera replicado el bucket
+      Type: String
+
+    #Bucket ARN S3 replica
+    DestinationBucketARN:
+      Description: ARN donde sera replicado el bucket
+      Type: String
+
+    AccountID:
+      Description: ID de la cuenta AWS
+      Type: String
+
+    #Kinesis Firehose
+    FirehoseStreamName:
+      Description: Nombre del flujo de entrega
+      Type: String
+    FirehoseIntervalInSeconds:
+      Description: (De BufferingHints) Valor por el cual Firehose almacena los datos entrantes durante el período de tiempo especificado, en segundos, antes de enviarlos al destino.
+      Type: String
+    FirehoseSizeInMBs:
+      Description: (De BufferingHints) Valor por el cual Firehose almacena los datos entrantes al tamaño especificado, en MiB, antes de enviarlos al destino.
+      Type: String
+    LzReportHead:
+      Type: String
+      Description: >-
+          cabecera para el reporte lz
+
+    #Kinesis Firehose Catalog
+    FirehoseStreamCatalogName:
+      Description: Nombre del flujo de entrega encabezado de catalogos
+      Type: String
+    LzReportHeadCatalog:
+      Type: String
+      Description: >-
+          cabecera para el reporte lz de catalogos
+
+  #Definicion de mappings
+  Mappings:
+    Fn::Transform:
+      Name: 'AWS::Include'
+      Parameters:
+        Location: s3://aw0000-cloud-include-templates-bucket/include-templates/arquitecturas-referencia/native/v3/include-arq-ref-mappings.yaml
+
+  # Definicion de condiciones
+  Conditions:
+
+    Fn::Transform:
+      Name: 'AWS::Include'
+      Parameters:
+        Location: s3://aw0000-cloud-include-templates-bucket/include-templates/arquitecturas-referencia/native/v3/include-arq-ref-conditions.yaml
+
+
+  # Definicion de recursos
+  Resources:
+    #Dynamo Error
+    TableDynamoErrors:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: !Sub ${applicationcode}-${project}-${environment}-dynamo-errors
+        AttributeDefinitions:
+        - AttributeName: applicationId
+          AttributeType: "S"
+        - AttributeName: errorCode
+          AttributeType: "S"
+        BillingMode: !If [envPdn, PROVISIONED, PAY_PER_REQUEST]
+        KeySchema:
+        - AttributeName: applicationId
+          KeyType: "HASH"
+        - AttributeName: errorCode
+          KeyType: "RANGE"
+        ProvisionedThroughput: 
+          ReadCapacityUnits: !If [envPdn, !Ref DynamoThroughputReadCapacity, 0]
+          WriteCapacityUnits: !If [envPdn, !Ref DynamoThroughputWriteCapacity, 0]
+        # Role:
+        #   Fn::GetAtt: DynamoDBRole.Arn
+        Tags:
+          - Key: "bancolombia:info-clientes-proveedores-empleados"
+            Value: "clientes-empleados"
+          - Key: "bancolombia:info-productos"
+            Value: "si"
+          - Key: "bancolombia:riesgos-seguridad"
+            Value: "ambas"
+          - Key: "bancolombia:clasificacion-confidencialidad"
+            Value: "confidencial"
+          - Key: "bancolombia:clasificacion-integridad"
+            Value: "impacto tolerable"
+          - Key: "bancolombia:clasificacion-disponibilidad"
+            Value: "impacto tolerable"
+          - Key: "bancolombia:dominio-informacion"
+            Value: "no"
+          - Key: "bancolombia:datos-personales"
+            Value: "no"
+          - Key: "bancolombia:cumplimiento"
+            Value: "no"
+          - Key: "bancolombia:bkmensual"
+            Value: "no"
+    # Dynamo DB Resource
+    TableDynamoCatalogs:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: !Sub ${applicationcode}-${project}-${environment}-dynamo-catalogs
+        AttributeDefinitions:
+        - AttributeName: typeCatalogue
+          AttributeType: "S"
+        BillingMode: !If [envPdn, PROVISIONED, PAY_PER_REQUEST]
+        KeySchema:
+        - AttributeName: typeCatalogue
+          KeyType: "HASH"
+        ProvisionedThroughput:
+          ReadCapacityUnits: !If [envPdn, !Ref DynamoThroughputReadCapacity, 0]
+          WriteCapacityUnits: !If [envPdn, !Ref DynamoThroughputWriteCapacity, 0]
+        # Role:
+        #   Fn::GetAtt: DynamoDBRole.Arn
+        Tags:
+           - Key: "bancolombia:info-clientes-proveedores-empleados"
+             Value: "clientes-empleados"
+           - Key: "bancolombia:info-productos"
+             Value: "si"
+           - Key: "bancolombia:riesgos-seguridad"
+             Value: "ambas"
+           - Key: "bancolombia:clasificacion-confidencialidad"
+             Value: "confidencial"
+           - Key: "bancolombia:clasificacion-integridad"
+             Value: "impacto tolerable"
+           - Key: "bancolombia:clasificacion-disponibilidad"
+             Value: "impacto tolerable"
+           - Key: "bancolombia:application-code"
+             Value: "ambas"
+           - Key: "bancolombia:project-name"
+             Value: !Ref project
+           - Key: "bancolombia:environment"
+             Value: !Ref environment
+           - Key: "bancolombia:cost-center"
+             Value: !Ref costcenter
+           - Key: "bancolombia:pmo"
+             Value: !Ref pmo
+           - Key: "bancolombia:business-service"
+             Value: !Ref businessservice
+           - Key: "azure-devops:pipeline-id"
+             Value: ""
+           - Key: "azure-devops:creator-email"
+             Value: "maanjime@bancolombia.com.co"
+           - Key: "bancolombia:dominio-informacion"
+             Value: "no"
+           - Key: "bancolombia:datos-personales"
+             Value: "no"
+           - Key: "bancolombia:cumplimiento"
+             Value: "no"
+           - Key: "bancolombia:bkmensual"
+             Value: "no"
+
+
+    TableDynamoConsumers:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: !Sub ${applicationcode}-${project}-${environment}-dynamo-consumers
+        AttributeDefinitions:
+        - AttributeName: consumerId
+          AttributeType: "S"
+        BillingMode: !If [envPdn, PROVISIONED, PAY_PER_REQUEST]
+        KeySchema:
+        - AttributeName: consumerId
+          KeyType: "HASH"
+        ProvisionedThroughput:
+          ReadCapacityUnits: !If [envPdn, !Ref DynamoThroughputReadCapacity, 0]
+          WriteCapacityUnits: !If [envPdn, !Ref DynamoThroughputWriteCapacity, 0]
+        # Role:
+        #   Fn::GetAtt: DynamoDBRole.Arn
+        Tags:
+           - Key: "bancolombia:info-clientes-proveedores-empleados"
+             Value: "clientes-empleados"
+           - Key: "bancolombia:info-productos"
+             Value: "si"
+           - Key: "bancolombia:riesgos-seguridad"
+             Value: "ambas"
+           - Key: "bancolombia:clasificacion-confidencialidad"
+             Value: "confidencial"
+           - Key: "bancolombia:clasificacion-integridad"
+             Value: "impacto tolerable"
+           - Key: "bancolombia:clasificacion-disponibilidad"
+             Value: "impacto tolerable"
+           - Key: "bancolombia:application-code"
+             Value: "ambas"
+           - Key: "bancolombia:project-name"
+             Value: !Ref project
+           - Key: "bancolombia:environment"
+             Value: !Ref environment
+           - Key: "bancolombia:cost-center"
+             Value: !Ref costcenter
+           - Key: "bancolombia:pmo"
+             Value: !Ref pmo
+           - Key: "bancolombia:business-service"
+             Value: !Ref businessservice
+           - Key: "azure-devops:pipeline-id"
+             Value: ""
+           - Key: "azure-devops:creator-email"
+             Value: "maanjime@bancolombia.com.co"
+           - Key: "bancolombia:dominio-informacion"
+             Value: "no"
+           - Key: "bancolombia:datos-personales"
+             Value: "no"
+           - Key: "bancolombia:cumplimiento"
+             Value: "no"
+           - Key: "bancolombia:bkmensual"
+             Value: "no"
+
+
+    # Policy asign to role (Service Connection DynamoDB Table)
+    DynamoDBRole:
+      Type: AWS::IAM::Role
+      Properties:
+        PermissionsBoundary: !Sub arn:aws:iam::${AWS::AccountId}:policy/Lz-Governance-Boundary
+        RoleName: !Sub ${applicationcode}-${project}-dynamodb-role
+        # ManagedPolicyArns:
+        #   - Ref: RootRolePolicy
+        AssumeRolePolicyDocument:
+          Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action:
+                - sts:AssumeRole
+              Principal:
+                Service:
+                  - dynamodb.amazonaws.com
+  
+    RootRolePolicy:
+      Type: AWS::IAM::Policy
+      Properties:
+        PolicyName:
+          Fn::Join: ["", [ekspolicy, Ref: project]]
+        Roles:
+          - !Ref RootRole
+          - !Ref DynamoDBRole
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:PutItem
+                - dynamodb:DescribeTable
+                - dynamodb:DeleteItem
+                - dynamodb:GetItem
+                - dynamodb:Scan
+                - dynamodb:Query
+                - dynamodb:UpdateItem
+                - dynamodb:GetRecords
+              Resource:
+                - !GetAtt 'TableDynamoCatalogs.Arn'
+                - !GetAtt 'TableDynamoConsumers.Arn'
+                - !GetAtt 'TableDynamoErrors.Arn'
+            - Effect: Allow
+              Action:
+                - 'firehose:PutRecord'
+                - 'firehose:PutRecords'
+                - 'firehose:GetRecord'
+                - 'firehose:GetRecords'
+                - 'firehose:ListDeliveryStreams'
+              Resource:
+                - !GetAtt FirehoseStream.Arn
+                - !GetAtt FirehoseStreamCatalog.Arn
+            - Effect: Allow
+              Action: 'sts:*'
+              Resource:
+                - '*'
+
+
+    # BUCKET S3
+    S3BucketLZ:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName:
+          Ref: buckets3LZ
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: AES256
+        VersioningConfiguration:
+          Status: Enabled
+        AccessControl: Private
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls : 'true'
+          BlockPublicPolicy : 'true'
+          IgnorePublicAcls : 'true'
+          RestrictPublicBuckets : 'true'
+        Tags:
+          ## Etiquetas de clasificacion de la informacion de seguridad
+           - Key: "bancolombia:info-clientes-proveedores-empleados"
+             Value: "clientes-empleados"
+           - Key: "bancolombia:info-productos"
+             Value: "si"
+           - Key: "bancolombia:riesgos-seguridad"
+             Value: "ambas"
+           - Key: "bancolombia:clasificacion-confidencialidad"
+             Value: "confidencial"
+           - Key: "bancolombia:clasificacion-integridad"
+             Value: "impacto tolerable"
+           - Key: "bancolombia:clasificacion-disponibilidad"
+             Value: "impacto tolerable"
+           - Key: "bancolombia:application-code"
+             Value: "ambas"
+           - Key: "bancolombia:project-name"
+             Value: !Ref project
+           - Key: "bancolombia:environment"
+             Value: !Ref environment
+           - Key: "bancolombia:cost-center"
+             Value: !Ref costcenter
+           - Key: "bancolombia:pmo"
+             Value: !Ref pmo
+           - Key: "bancolombia:business-service"
+             Value: !Ref businessservice
+           - Key: "azure-devops:pipeline-id"
+             Value: ""
+           - Key: "azure-devops:creator-email"
+             Value: "maanjime@bancolombia.com.co"
+           - Key: "bancolombia:dominio-informacion"
+             Value: "no"
+           - Key: "bancolombia:datos-personales"
+             Value: "no"
+
+    # BUCKET S3 CATALOG
+    S3BucketCatalogLZ:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName:
+          Ref: buckets3CatalogLZ
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: AES256
+        VersioningConfiguration:
+          Status: Enabled
+        AccessControl: Private
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls : 'true'
+          BlockPublicPolicy : 'true'
+          IgnorePublicAcls : 'true'
+          RestrictPublicBuckets : 'true'
+        Tags:
+          ## Etiquetas de clasificacion de la informacion de seguridad
+           - Key: "bancolombia:info-clientes-proveedores-empleados"
+             Value: "clientes-empleados"
+           - Key: "bancolombia:info-productos"
+             Value: "si"
+           - Key: "bancolombia:riesgos-seguridad"
+             Value: "ambas"
+           - Key: "bancolombia:clasificacion-confidencialidad"
+             Value: "confidencial"
+           - Key: "bancolombia:clasificacion-integridad"
+             Value: "impacto tolerable"
+           - Key: "bancolombia:clasificacion-disponibilidad"
+             Value: "impacto tolerable"
+           - Key: "bancolombia:application-code"
+             Value: "ambas"
+           - Key: "bancolombia:project-name"
+             Value: !Ref project
+           - Key: "bancolombia:environment"
+             Value: !Ref environment
+           - Key: "bancolombia:cost-center"
+             Value: !Ref costcenter
+           - Key: "bancolombia:pmo"
+             Value: !Ref pmo
+           - Key: "bancolombia:business-service"
+             Value: !Ref businessservice
+           - Key: "azure-devops:pipeline-id"
+             Value: ""
+           - Key: "azure-devops:creator-email"
+             Value: "maanjime@bancolombia.com.co"
+           - Key: "bancolombia:dominio-informacion"
+             Value: "no"
+           - Key: "bancolombia:datos-personales"
+             Value: "no"
+
+    # BUCKET QUERYS
+    S3BucketQuerysATD:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: !Sub '${applicationcode}-${project}-${environment}-s3-querys'
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: AES256
+        VersioningConfiguration:
+          Status: Enabled
+        AccessControl: Private
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: 'true'
+          BlockPublicPolicy: 'true'
+          IgnorePublicAcls: 'true'
+          RestrictPublicBuckets: 'true'
+        Tags:
+          ## Etiquetas de clasificacion de la informacion de seguridad
+          - Key: "bancolombia:info-clientes-proveedores-empleados"
+            Value: "clientes-empleados"
+          - Key: "bancolombia:info-productos"
+            Value: "si"
+          - Key: "bancolombia:riesgos-seguridad"
+            Value: "ambas"
+          - Key: "bancolombia:clasificacion-confidencialidad"
+            Value: "confidencial"
+          - Key: "bancolombia:clasificacion-integridad"
+            Value: "impacto tolerable"
+          - Key: "bancolombia:clasificacion-disponibilidad"
+            Value: "impacto tolerable"
+          - Key: "bancolombia:application-code"
+            Value: "ambas"
+          - Key: "bancolombia:project-name"
+            Value: 'proyecto'
+          - Key: "bancolombia:environment"
+            Value: 'amiente'
+          - Key: "bancolombia:cost-center"
+            Value: 'centro de costos'
+          - Key: "bancolombia:pmo"
+            Value: 'pmo'
+          - Key: "bancolombia:business-service"
+            Value: 'b service'
+          - Key: "azure-devops:pipeline-id"
+            Value: ""
+          - Key: "azure-devops:creator-email"
+            Value: "maanjime@bancolombia.com.co"
+          - Key: "bancolombia:dominio-informacion"
+            Value: "no"
+          - Key: "bancolombia:datos-personales"
+            Value: "no"
+
+    bucketReplicationRole:
+      Type: AWS::IAM::Role
+      Properties:
+        PermissionsBoundary: !Sub arn:aws:iam::${AWS::AccountId}:policy/Lz-Governance-Boundary
+        RoleName: !Join [ "_", [ !Ref applicationcode ,!Ref project , s3replicationpolicy]]
+        Path: "/"
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - s3.amazonaws.com
+              Action:
+                - sts:AssumeRole
+        Policies:
+        - PolicyName: !Join [ "_", [ !Ref applicationcode ,!Ref project , s3replicationpolicy]]
+          PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+              - Action:
+                - s3:ListBucket
+                - s3:GetReplicationConfiguration
+                - s3:GetObjectVersionForReplication
+                - s3:GetObjectVersionAcl
+                - s3:GetObjectVersionTagging
+                - s3:GetObjectRetention
+                - s3:GetObjectLegalHold
+                - "s3:*"
+                Effect: Allow
+                Resource:
+                  - !Sub 'arn:aws:s3:::nu0170001-modulo-solucion-cuentas-${environment}-s3-lz-web'
+                  - !Sub 'arn:aws:s3:::nu0170001-modulo-solucion-cuentas-${environment}-s3-lz-web/*'
+              - Action:
+                - s3:ReplicateObject
+                - s3:ReplicateTags
+                - s3:GetObjectVersionTagging
+                - s3:ObjectOwnerOverrideToBucketOwner
+                Effect: Allow
+                Resource: !Join ["",[!Ref DestinationBucketARN,"/*"]]
+    # Kinesis firehose
+    FirehoseStream:
+        Type: "AWS::KinesisFirehose::DeliveryStream"
+        Properties:
+          DeliveryStreamName:
+            Ref: FirehoseStreamName
+          DeliveryStreamType: DirectPut
+          ExtendedS3DestinationConfiguration:
+            BucketARN: !GetAtt S3BucketLZ.Arn
+            BufferingHints:
+              #IntervalInSeconds: !Ref FirehoseIntervalInSeconds
+              #SizeInMBs: !Ref FirehoseSizeInMBs
+              IntervalInSeconds: 600
+              SizeInMBs: 128
+            CompressionFormat: UNCOMPRESSED
+            Prefix: report-lz/!{timestamp:yyyy}
+            ErrorOutputPrefix: failed/!{firehose:error-output-type}/
+            RoleARN: !GetAtt 'DeliveryRole.Arn'
+            ProcessingConfiguration:
+              Enabled: 'true'
+              Processors:
+                - Parameters:
+                    - ParameterName: LambdaArn
+                      ParameterValue: !GetAtt 'ProcessingLambdaFunction.Arn'
+                    - ParameterName: BufferIntervalInSeconds
+                      ParameterValue: 600
+                    - ParameterName: BufferSizeInMBs
+                      ParameterValue: 3
+                  Type: Lambda 
+
+    # Kinesis firehose Catalog
+    FirehoseStreamCatalog:
+        Type: "AWS::KinesisFirehose::DeliveryStream"
+        Properties:
+          DeliveryStreamName:
+            Ref: FirehoseStreamCatalogName
+          DeliveryStreamType: DirectPut
+          ExtendedS3DestinationConfiguration:
+            BucketARN: !GetAtt S3BucketCatalogLZ.Arn
+            BufferingHints:
+              #IntervalInSeconds: !Ref FirehoseIntervalInSeconds
+              #SizeInMBs: !Ref FirehoseSizeInMBs
+              IntervalInSeconds: 600
+              SizeInMBs: 128
+            CompressionFormat: UNCOMPRESSED
+            Prefix: report-lz/!{timestamp:yyyy}
+            ErrorOutputPrefix: failed/!{firehose:error-output-type}/
+            RoleARN: !GetAtt 'DeliveryRole.Arn'
+            ProcessingConfiguration:
+              Enabled: 'true'
+              Processors:
+                - Parameters:
+                    - ParameterName: LambdaArn
+                      ParameterValue: !GetAtt 'ProcessingLambdaFunctionCatalog.Arn'
+                    - ParameterName: BufferIntervalInSeconds
+                      ParameterValue: 600
+                    - ParameterName: BufferSizeInMBs
+                      ParameterValue: 3
+                  Type: Lambda 
+
+
+
+
+            
+    # Reporte Funcional Role Kinesis acceso a S3 LZ
+    DeliveryRole:
+      Type: AWS::IAM::Role
+      Properties:
+        PermissionsBoundary: !Sub arn:aws:iam::${AWS::AccountId}:policy/Lz-Governance-Boundary
+        AssumeRolePolicyDocument:
+          Version: 2012-10-17
+          Statement:
+          -
+            Effect: Allow
+            Principal:
+                Service:
+                - firehose.amazonaws.com
+            Action: 'sts:AssumeRole'
+        Policies:
+          -
+            PolicyName: !Join
+              - '_'
+              - - 'kinesis_delivery'
+                - !Ref AWS::StackName
+            PolicyDocument:
+              Version: 2012-10-17
+              Statement:
+              -
+                Effect: Allow
+                Action:
+                  - 's3:AbortMultipartUpload'
+                  - 's3:GetBucketLocation'
+                  - 's3:GetObject'
+                  - 's3:ListBucket'
+                  - 's3:ListBucketMultipartUploads'
+                  - 's3:PutObject'
+                Resource:
+                - !Join
+                    - ''
+                    - - 'arn:aws:s3:::'
+                      - !Ref S3BucketLZ
+                - !Join
+                    - ''
+                    - - 'arn:aws:s3:::'
+                      - !Ref S3BucketLZ
+                      - '*'
+                - !Join
+                    - ''
+                    - - 'arn:aws:s3:::'
+                      - !Ref S3BucketCatalogLZ
+                - !Join
+                    - ''
+                    - - 'arn:aws:s3:::'
+                      - !Ref S3BucketCatalogLZ
+                      - '*'
+    InvokeLambdaPolicy:
+      Type: AWS::IAM::Policy
+      Properties:
+        PolicyName: firehose_lambda_policy
+        PolicyDocument:
+          Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action:
+                - 'lambda:InvokeFunction'
+              Resource:
+                - !GetAtt ProcessingLambdaFunction.Arn
+        Roles:
+          - !Ref DeliveryRole
+
+    #lambda kinesis fire house
+    LambdaKFHRole:
+      Type: 'AWS::IAM::Role'
+      Properties:
+        PermissionsBoundary: !Sub arn:aws:iam::${AWS::AccountId}:policy/Lz-Governance-Boundary
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - 'lambda.amazonaws.com'
+              Action: 'sts:AssumeRole'
+    LambdaKFHPolicy:
+      Type: AWS::IAM::Policy
+      Properties:
+        PolicyName: AWSProcessingLambdaFunctionExecutionRole
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - logs:PutLogEvents
+                - logs:CreateLogStream
+                - logs:CreateLogGroup
+              Resource: arn:aws:logs:*:*:*
+        Roles:
+          - Ref: LambdaKFHRole
+    ProcessingLambdaFunction:
+      Type: AWS::Lambda::Function
+      Properties:
+        Description: Funcion lambda que inserta cabeceras archivo kinesis
+        Code:
+          ZipFile:  !Sub |
+            console.log('Loading function');
+            exports.handler = async (event, context) => {
+                /* get records event */
+                const output = event.records.map((record) => {
+                    return {
+                        recordId: record.recordId,
+                        result: 'Ok',
+                        data: record.data
+                    }
+                });
+                var enterBase64 = "Cg==";
+                /*insert header in first position to records*/
+                output[0].data = process.env.lz_report_head+enterBase64+output[0].data;
+                console.log(`Processing completed.  Successful records`);
+                return { records: output };
+            };
+        FunctionName:
+          Fn::Sub: lambda-kfh-${project}-${environment}
+        Handler: index.handler
+        Environment:
+          Variables:
+            lz_report_head: !Ref LzReportHead
+        MemorySize: 128
+        Role:
+          Fn::GetAtt: LambdaKFHRole.Arn
+        Runtime: nodejs12.x
+        Timeout: 60
+    VersionLambdaFunction:
+      Type: AWS::Lambda::Version
+      Properties:
+        FunctionName:
+          Ref: ProcessingLambdaFunction
+
+
+
+    ###################################################
+    ###################################################
+    ###################################################
+
+    
+    #lambda CODE node.js Catalog
+    ProcessingLambdaFunctionCatalog:
+      Type: AWS::Lambda::Function
+      Properties:
+        Description: Funcion lambda que inserta cabeceras archivo kinesis catalog
+        Code:
+          ZipFile:  !Sub |
+            console.log('Loading function');
+            exports.handler = async (event, context) => {
+                /* get records event */
+                const output = event.records.map((record) => {
+                    return {
+                        recordId: record.recordId,
+                        result: 'Ok',
+                        data: record.data
+                    }
+                });
+                var enterBase64 = "Cg==";
+                /*insert header in first position to records*/
+                output[0].data = process.env.lz_report_head+enterBase64+output[0].data;
+                console.log(`Processing completed.  Successful records`);
+                return { records: output };
+            };
+        FunctionName:
+          Fn::Sub: lambda-kfh-${project}-${environment}-catalog
+        Handler: index.handler
+        Environment:
+          Variables:
+            lz_report_head: !Ref LzReportHeadCatalog
+        MemorySize: 128
+        Role:
+          Fn::GetAtt: LambdaKFHRoleCatalog.Arn
+        Runtime: nodejs12.x
+        Timeout: 60
+
+    #lamda Version ProcessingLambdaFunctionCatalog  
+    VersionLambdaFunction:
+      Type: AWS::Lambda::Version
+      Properties:
+        FunctionName:
+          Ref: ProcessingLambdaFunctionCatalog
+
+
+   #lamda ROLE lambda kinesis fire house Catalog
+    LambdaKFHRoleCatalog:
+      Type: 'AWS::IAM::Role'
+      Properties:
+        PermissionsBoundary: !Sub arn:aws:iam::${AWS::AccountId}:policy/Lz-Governance-Boundary
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - 'lambda.amazonaws.com'
+              Action: 'sts:AssumeRole'
+    
+    #lamda Invocacion politicas catalog
+    InvokeLambdaPolicyCatalog:
+      Type: AWS::IAM::Policy
+      Properties:
+        PolicyName: firehose_lambda_policy_catalog
+        PolicyDocument:
+          Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action:
+                - 'lambda:InvokeFunction'
+              Resource:
+                - !GetAtt ProcessingLambdaFunctionCatalog.Arn
+        Roles:
+          - !Ref DeliveryRole
+    
+    #lamda politicas catalog
+    LambdaKFHPolicyCatalog:
+      Type: AWS::IAM::Policy
+      Properties:
+        PolicyName: AWSProcessingLambdaFunctionExecutionRoleCatalog
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - logs:PutLogEvents
+                - logs:CreateLogStream
+                - logs:CreateLogGroup
+              Resource: arn:aws:logs:*:*:*
+        Roles:
+          - Ref: LambdaKFHRoleCatalog
+
+
+    ###################################################
+    ###################################################
+    ###################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ # Despliegue lambda para cloudFront   
+    LambdaCFRole:
+      Type: 'AWS::IAM::Role'
+      Properties:
+        PermissionsBoundary: !Sub arn:aws:iam::${AWS::AccountId}:policy/Lz-Governance-Boundary
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - 'lambda.amazonaws.com'
+                  - 'edgelambda.amazonaws.com'
+              Action: 'sts:AssumeRole'
+        ManagedPolicyArns:
+          - 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+    LambdaCFPolicy:
+      Type: AWS::IAM::Policy
+      Properties:
+        PolicyName: AWSLambdaEdgeExecutionRole
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - logs:PutLogEvents
+                - logs:CreateLogStream
+                - logs:CreateLogGroup
+              Resource: arn:aws:logs:*:*:*
+        Roles:
+          - Ref: LambdaCFRole
+    
+    SecurityPolicyFunctionGTM3:
+        Type: AWS::Lambda::Function
+        DependsOn:
+          - LambdaCFRole
+        Properties:
+          Description: Funcion lambda que modifica las cabeceras de seguridad
+          Code:
+            ZipFile:  !Sub |
+              'use strict';
+              exports.handler = (event, context, callback) => {
+                //Get contents of response
+                const response = event.Records[0].cf.response;
+                const headers = response.headers;
+                //Set new headers
+                    headers['content-security-policy'] = [{key: 'Content-Security-Policy', value: "default-src https:; img-src https:; script-src https:; style-src https:; object-src https:"}];
+                    headers['strict-transport-security'] = [{key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubdomains; preload'}];
+                    headers['x-content-type-options'] = [{key: 'X-Content-Type-Options', value: 'nosniff'}]; 
+                    headers['x-xss-protection'] = [{key: 'X-XSS-Protection', value: '1; mode=block'}]; 
+                    headers['referrer-policy'] = [{key: 'Referrer-Policy', value: 'same-origin'}];
+                    headers['access-control-allow-origin'] = [{key: 'Access-Control-Allow-Origin', value: 'https://${domainname}'}];
+                    headers['x-permitted-cross-domain-policies'] = [{key: 'X-Permitted-Cross-Domain-Policies', value: 'master-only'}];
+                    headers['cache-control'] = [{key: 'Cache-Control', value: 'no-cache; must-revalidate; pre-check= 0; post-check= 0; max-age= 0; s-maxage= 0; no-store'}];
+                    headers['pragma'] = [{key: 'Pragma', value: 'no-cache'}];
+                    headers['x-frame-options'] = [{key: 'X-Frame-Options', value: 'DENY'}];
+                    headers['expires'] = [{key: 'Expires', value : '0'}];
+                    headers['upgrade-insecure-requests'] = [{key: 'Upgrade-Insecure-Requests', value : '1'}];
+                    headers['server'] = [{key: 'Server', value : ''}];
+                    //Return modified response
+                callback(null, response);
+              };
+          FunctionName:
+            Fn::Sub: lambda-headers-${project}-${environment}
+          Handler: index.handler
+          MemorySize: 128
+          Role:
+            Fn::GetAtt: LambdaCFRole.Arn
+          Runtime: nodejs12.x
+          Timeout: 3
+    VersionedLambdaFunction:
+      Type: AWS::Lambda::Version
+      Properties:
+        FunctionName:
+          Ref: SecurityPolicyFunctionGTM3
+
+
+
+  # Despliegue de: ECR - RDS - CloudFront - EKS Role
+    Fn::Transform:
+      Name: 'AWS::Include'
+      Parameters:
+        Location: s3://aw0000-cloud-include-templates-bucket/include-templates/arquitecturas-referencia/native/v3/include-arq-ref-resources.yaml
+
+  # Definicion de salidas
+  Outputs:
+
+    Fn::Transform:
+      Name: 'AWS::Include'
+      Parameters:
+        Location: s3://aw0000-cloud-include-templates-bucket/include-templates/arquitecturas-referencia/native/v3/include-arq-ref-outputs.yaml

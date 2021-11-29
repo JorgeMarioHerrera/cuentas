@@ -1,0 +1,4 @@
+{
+  "code": "VALDAR-001",
+  "description": "CrudRepository - the given entity or id (Include argument field) is null"
+}

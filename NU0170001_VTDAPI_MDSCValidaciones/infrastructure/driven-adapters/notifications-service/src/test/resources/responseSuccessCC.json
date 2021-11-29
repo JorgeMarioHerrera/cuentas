@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "_messageId": "a97f8c5d-6ee0-4e84-94b7-0f5e749017b9",
+    "_version": "1.0.0",
+    "_requestDate": "2021-07-01T19:13:27",
+    "_clientRequest": "a97f8c5d-6ee0-4e84-94b7-0f5e749017b9"
+  },
+  "data": {
+    "dynamicKeyIndicator": "1",
+    "dynamicKeyMechanism": "STK",
+    "enrollmentDate": "2021-06-18",
+    "lastMechanismUpdateDate": "2021-06-18",
+    "alertIndicators": [
+      {
+        "alertType": "ALE",
+        "customerMobileNumber": "3125454182",
+        "customerEmail": "DFMATEUS@BANCOLOMBIA.COM.CO",
+        "pushActive": "0",
+        "lastDataModificationDate": "2021-06-18"
+      }
+    ]
+  },
+  "links": {
+    "self": "https://internal-apigateway-qa.bancolombia.corp/int/testing/v1/business-support/document-management/document-services/customers/actions/retrieve/information"
+  }
+}

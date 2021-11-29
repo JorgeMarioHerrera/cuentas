@@ -1,0 +1,9 @@
+##Spring Configuration
+server:
+  port: 8080
+  servlet:
+    contextPath: "/modulo-solucion-cuentas/mensajes-error-api"
+spring:
+  application:
+    name: NU0170001_VTDAPI_MDSCMensajesError
+    tagList: pmo,captaciones,dev,error-api

@@ -1,0 +1,98 @@
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'jacoco'
+
+buildscript {
+    ext {
+        springBootVersion = '2.1.8.RELEASE'
+    }
+    repositories {
+        maven { url 'https://artifactory.apps.bancolombia.com/maven-bancolombia' }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath('org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.1')
+    }
+}
+
+group = 'co.com.bancolombia.edgeservice'
+version = '1.0.0'
+archivesBaseName = 'NU0170001_VTDAPI_MDSCEdgeService'
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+
+bootJar {
+    archiveFileName  = "$archivesBaseName" + ".jar"
+}
+
+
+repositories {
+    maven { url 'https://artifactory.apps.bancolombia.com/maven-bancolombia' }
+}
+
+configurations {
+    drivers
+}
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+ext {
+    set('springCloudVersion', "Greenwich.SR3")
+}
+
+dependencies {
+    implementation group: 'co.com.bancolombia', name: 'technical-log', version: '1.1.1'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.1.8.RELEASE'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-gateway', version: '2.1.4.RELEASE'
+    implementation group: 'org.json', name: 'json', version: '20190722'
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.2.2'
+    testImplementation "org.springframework.cloud:spring-cloud-starter-contract-stub-runner"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.2.2'
+    // https://mvnrepository.com/artifact/io.projectreactor/reactor-test
+    testImplementation group: 'io.projectreactor', name: 'reactor-test', version: '3.1.0.RELEASE'
+
+
+    //add  width Mockito
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+}
+
+configurations {
+    compile.exclude group: "org.apache.logging.log4j", module:"log4j-to-slf4j"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+def jacocoExcludes = []
+def jacocoIncludes = []
+
+jacoco {
+    toolVersion = "0.8.5"
+    reportsDir = file("$buildDir/reports/jacoco")
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+        xml.destination file("${buildDir}/report.xml")
+    }
+}
+
+test {
+    jacoco {
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+        classDumpDir = file("$buildDir/jacoco/classpathdumps")
+    }
+}

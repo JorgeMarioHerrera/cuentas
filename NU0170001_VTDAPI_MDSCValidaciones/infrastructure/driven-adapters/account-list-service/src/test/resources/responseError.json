@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "_messageId": "33399-00023-23023093-2325",
+    "_requestTimeStamp": "2021-10-19T08:36:50.294Z"
+  },
+  "errors": [
+    {
+      "code": "BP12900005",
+      "detail": "Tipo de identificación inválida."
+    }
+  ],
+  "status": 400,
+  "title": "Bad Request"
+}

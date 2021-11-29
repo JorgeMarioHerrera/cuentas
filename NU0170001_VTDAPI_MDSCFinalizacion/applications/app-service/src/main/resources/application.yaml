@@ -1,0 +1,43 @@
+server:
+  port: 8080
+  servlet:
+    context-path: "/modulo-solucion-cuentas/finalizacion-api"
+spring:
+  application:
+    name: "NU0170001_VTDAPI_MDSCFinalizacion"
+    tagList: pmo,captaciones,dev
+  redis:
+    server:
+      address: 127.0.0.1
+      port: 6379
+log4j:
+  level:
+    state: INFO
+logging:
+  level:
+    org:
+      springframework:
+        web: TRACE
+services:
+  messageError:
+    urlService: https://financiacion-ext-dev.apps.ambientesbc.com/modulo-solucion-cuentas/mensajes-error-api/obtainErrorByPartitionAndShortKey
+  kinesis:
+    firehose:
+      lzReportHead: SWRfU2VzaW9ufElwX0NsaWVudGV8RGV2aWNlX0Jyb3dzZXJ8VXNlcl9BZ2VudHxTaXN0ZW1hX09wZXJhdGl2b3xWZXJzaW9uX1Npc3RlbWFfT3BlcmF0aXZvfERpc3Bvc2l0aXZvfFBhc29fRnVuY2lvbmFsfEZlY2hhX0hvcmFfUGFzb3xQcm9jZXNvfFRpcG9fZG9jdW1lbnRvfE51bWVyb19kb2N1bWVudG98VGlwb19jdWVudGF8UGxhbnxDYXRlZ29yaWFfcGxhbnxDYXRlZ29yaWFfY2xpZW50ZXxDb2RpZ29fYXV0ZW50aWNhY2lvbnxDb25zdW1pZG9yfE5vbWJyZV9DbGllbnRlfFRpcG9fQ2xpZW50ZXxDZWx1bGFyfENvcnJlb19lbGVjdHJvbmljb3xDb2RpZ29fY2l1ZGFkX3Jlc2lkZW5jaWF8Q2l1ZGFkX3Jlc2lkZW5jaWF8RGlyZWNjaW9uX3ByaW5jaXBhbHxDdWVudGFfTWFzaXZvfEN1ZW50YV9DYW1iaW9fUGxhbnxEb21pY2lsaW9fQ0F8U29mdG9rZW58RGlhc19Nb2RpZmljYWNpb258U2FsZG9zfFZhbGlkYV9BdXRlbnRpY2FjaW9ufEZlY2hhX0hvcmFfQXV0ZW50aWNhY2lvbnxDYW5hbF9BdXRlbnRpY2FjaW9ufFNlbGVjY2lvbl9PZmVydGF8VmFsb3JfTml0X05vbWluYXxWYWxpZG9fTml0X05vbWluYXxOdW1lcm9fSW50ZW5jacOzbnxDb252ZW5pb3xDb252ZW5pb19EdW1taWV8Tml0X1BlbnNpb258RW50aWRhZF9QZW5zaW9ufFNlbGVjY2lvbl9vdHJvX3BsYW58UGxhbl9EZWZpbml0aXZvfElEX1BsYW5fRGVmaW5pdGl2b3xEb2N1bWVudG9fVmVyc2lvbnxGZWNoYV9Ib3JhX0FjZXB0YWNpb258QWJyaW9fTGlua3xDdWVudGF8SW5ncmVzb19Bc2Vzb3J8VmFsaWRvX0FzZXNvcnxBc2Vzb3JfSW5ncmVzYWRvfFN1Y3Vyc2FsX0N1ZW50YXxHTUZ8R01GX0JhbmNvfFJldGlyb3NfQ2FqZXJvfFJldGlyb3NfQ0J8Q3VvdGFfTWFuZWpvfENvbnRpbmdlbmNpYV9DTXxDYW50aWRhZF9SZWN1cGVyYWRhc3xDYW50aWRhZF9CbG9xdWVhZGFzfFRhcmpldGFzX0Jsb3F1ZWFkYXN8Q2FudGlkYWRfQ29uc2VydmFkYXN8VGFyamV0YXNfQ29uc2VydmFkYXN8Q29uc2VydmFfVER8Tm9fRG9taWNpbGlvfFRpcG9fQ2l1ZGFkfFRpcG9fRW50cmVnYXxDYXJnb19EaXJlY2Npb258Q2FtYmlvX0RpcmVjY2lvbnxUaWVtcG9fRW50cmVnYXxDb2RpZ29fQ2l1ZGFkX0RvbWljaWxpb3xDaXVkYWRfRHB0b19Eb21pY2lsaW98RGlyZWNjaW9uX0RvbWljaWxpb3xDb21wbGVtZW50b19Eb21pY2lsaW98Q29udGludW9fU2luX0NvYmVydHVyYXxDb3N0b19UYXJqZXRhfENvc3RvX01hbmlsbGF8Q29zdG9fU3RpY2tlcnxTZWxlY2Npb25fVGFyamV0YXxUaXBvX1RhcmpldGF8RW52aW9fQ29ycmVvfFRpcG9fQ29ycmVvfENhbGlmaWNhY2lvbl9OZWNlc2lkYWR8Q2FsaWZpY2FjaW9uX1Byb2Nlc298Q2FsaWZpY2FjaW9uX0V4cGVyaWVuY2lhfENhbGlmaWNhY2lvbl9PYnNlcnZhY2lvbmVzfERlc2NhcmdvX0NhcnRhfERlc2NhcmdvX1JlZmVyZW5jaWF8RGVzY2FyZ29fUmVnbGFtZW50b3xUaXBvX0Vycm9yfE9wZXJhY2lvbl9FcnJvcnxTZXJ2aWNpb19FcnJvcnxDb2RpZ29fRXJyb3J8RGVzY3JpcGNpb25fVGVjbmljYXxEZXNjcmlwY2lvbl9GdW5jaW9uYWw
+      nameDeliveryStream: functional-report-stream
+  pdf:
+    dirTemplateWelcome: /home/appuser/pdf/resources/
+    templateFileName: CARTA_BIENVENIDA_CUENTA_AHORROS.pdf
+    urlGooglePlay: https://play.google.com/store/apps/details?id=com.todo1.mobile&hl=es_CO
+    urlAppStore: https://apps.apple.com/co/app/bancolombia-app-personas/id565101003
+    urlRegulation: https://www.grupobancolombia.com/wcm/connect/7cf88e07-1376-47a0-8ca3-daa38213f0cc/F-1238-8003002ReglamentoCuentaAhorros.pdf?MOD=AJPERES
+  email:
+    urlService: http://demo8845769.mockable.io/
+    urlPathEmail: int/development/v1/business-support/document-management/correspondence/email-basic
+    #    urlService: https://internal-apigateway-qa.bancolombia.corp/
+    #      urlPathEmail: int/testing/v1/business-support/document-management/correspondence/email-basic
+security:
+  service:
+    ibmClientId: 9481e307-b554-4f89-9afb-0f7485b84b87
+    ibmClientSecret: R6nC0oJ8wX7bW3gX7cS0uP5uP1jN5yO1bD8rI3wM4oP4uU3lR7
+

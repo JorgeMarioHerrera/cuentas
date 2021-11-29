@@ -1,0 +1,71 @@
+server:
+  port: 8080
+  servlet:
+    context-path: "/modulo-solucion-cuentas/validaciones-api"
+spring:
+  application:
+    name: "NU0170001_VTDAPI_MDSCValidaciones"
+    tagList: pmo,captaciones,dev
+  redis:
+    server:
+      address: 127.0.0.1
+      port: 6379
+log4j:
+  level:
+    state: INFO
+logging:
+  level:
+    org:
+      springframework:
+        web: TRACE
+services:
+  fua:
+    urlService: http://demo9798492.mockable.io
+    urlPathConsume: /int/testing/v3/sales-service/cross-channel/authentication/security/authorization-codes/validate-code
+    grantType: authorization_code
+    clientId: ATD
+    redirectUri: https://activartarjeta-qa.apps.ambientesbc.com/
+    authBasic: QVREOmF0ZDEyMzQ1Ng==
+  customerData:
+    urlService: http://demo9798492.mockable.io
+    pathRetrieveBasic: /int/development/v1/sales-services/customer-management/customer-reference-data-management/customer-personal-data/retrieve-basic-information
+    pathRetrieveContact: /int/development/v1/sales-services/customer-management/customer-reference-data-management/customer-contact/retrieve-contact-information
+    pathRetrieveDetailed: /int/development/v1/sales-services/customer-management/customer-reference-data-management/customer-personal-data/retrieve-detaild-information
+  messageError:
+    urlService: https://financiacion-ext-dev.apps.ambientesbc.com/asociacion-tarjeta-debito/message-error-api/obtainErrorByPartitionAndShortKey
+  kinesis:
+    firehose:
+      lzReportHead: SWRfU2VzaW9ufElwX0NsaWVudGV8RGV2aWNlX0Jyb3dzZXJ8VXNlcl9BZ2VudHxTaXN0ZW1hX09wZXJhdGl2b3xWZXJzaW9uX1Npc3RlbWFfT3BlcmF0aXZvfERpc3Bvc2l0aXZvfFBhc29fRnVuY2lvbmFsfEZlY2hhX0hvcmFfUGFzb3xQcm9jZXNvfFRpcG9fZG9jdW1lbnRvfE51bWVyb19kb2N1bWVudG98VGlwb19jdWVudGF8UGxhbnxDYXRlZ29yaWFfcGxhbnxDYXRlZ29yaWFfY2xpZW50ZXxDb2RpZ29fYXV0ZW50aWNhY2lvbnxDb25zdW1pZG9yfE5vbWJyZV9DbGllbnRlfFRpcG9fQ2xpZW50ZXxDZWx1bGFyfENvcnJlb19lbGVjdHJvbmljb3xDb2RpZ29fY2l1ZGFkX3Jlc2lkZW5jaWF8Q2l1ZGFkX3Jlc2lkZW5jaWF8RGlyZWNjaW9uX3ByaW5jaXBhbHxDdWVudGFfTWFzaXZvfEN1ZW50YV9DYW1iaW9fUGxhbnxEb21pY2lsaW9fQ0F8U29mdG9rZW58RGlhc19Nb2RpZmljYWNpb258U2FsZG9zfFZhbGlkYV9BdXRlbnRpY2FjaW9ufEZlY2hhX0hvcmFfQXV0ZW50aWNhY2lvbnxDYW5hbF9BdXRlbnRpY2FjaW9ufFNlbGVjY2lvbl9PZmVydGF8VmFsb3JfTml0X05vbWluYXxWYWxpZG9fTml0X05vbWluYXxOdW1lcm9fSW50ZW5jacOzbnxDb252ZW5pb3xDb252ZW5pb19EdW1taWV8Tml0X1BlbnNpb258RW50aWRhZF9QZW5zaW9ufFNlbGVjY2lvbl9vdHJvX3BsYW58UGxhbl9EZWZpbml0aXZvfElEX1BsYW5fRGVmaW5pdGl2b3xEb2N1bWVudG9fVmVyc2lvbnxGZWNoYV9Ib3JhX0FjZXB0YWNpb258QWJyaW9fTGlua3xDdWVudGF8SW5ncmVzb19Bc2Vzb3J8VmFsaWRvX0FzZXNvcnxBc2Vzb3JfSW5ncmVzYWRvfFN1Y3Vyc2FsX0N1ZW50YXxHTUZ8R01GX0JhbmNvfFJldGlyb3NfQ2FqZXJvfFJldGlyb3NfQ0J8Q3VvdGFfTWFuZWpvfENvbnRpbmdlbmNpYV9DTXxDYW50aWRhZF9SZWN1cGVyYWRhc3xDYW50aWRhZF9CbG9xdWVhZGFzfFRhcmpldGFzX0Jsb3F1ZWFkYXN8Q2FudGlkYWRfQ29uc2VydmFkYXN8VGFyamV0YXNfQ29uc2VydmFkYXN8Q29uc2VydmFfVER8Tm9fRG9taWNpbGlvfFRpcG9fQ2l1ZGFkfFRpcG9fRW50cmVnYXxDYXJnb19EaXJlY2Npb258Q2FtYmlvX0RpcmVjY2lvbnxUaWVtcG9fRW50cmVnYXxDb2RpZ29fQ2l1ZGFkX0RvbWljaWxpb3xDaXVkYWRfRHB0b19Eb21pY2lsaW98RGlyZWNjaW9uX0RvbWljaWxpb3xDb21wbGVtZW50b19Eb21pY2lsaW98Q29udGludW9fU2luX0NvYmVydHVyYXxDb3N0b19UYXJqZXRhfENvc3RvX01hbmlsbGF8Q29zdG9fU3RpY2tlcnxTZWxlY2Npb25fVGFyamV0YXxUaXBvX1RhcmpldGF8RW52aW9fQ29ycmVvfFRpcG9fQ29ycmVvfENhbGlmaWNhY2lvbl9OZWNlc2lkYWR8Q2FsaWZpY2FjaW9uX1Byb2Nlc298Q2FsaWZpY2FjaW9uX0V4cGVyaWVuY2lhfENhbGlmaWNhY2lvbl9PYnNlcnZhY2lvbmVzfERlc2NhcmdvX0NhcnRhfERlc2NhcmdvX1JlZmVyZW5jaWF8RGVzY2FyZ29fUmVnbGFtZW50b3xUaXBvX0Vycm9yfE9wZXJhY2lvbl9FcnJvcnxTZXJ2aWNpb19FcnJvcnxDb2RpZ29fRXJyb3J8RGVzY3JpcGNpb25fVGVjbmljYXxEZXNjcmlwY2lvbl9GdW5jaW9uYWw
+      nameDeliveryStream: functional-report-stream
+  accountList:
+    urlService: http://demo9798492.mockable.io
+    pathRetrieveList: /int/development/v1/operations/product-specific/deposits/customers/accounts/retrieve-list
+  accountBalance:
+    urlService: http://demo8845769.mockable.io
+    pathBalances: /int/development/v1/operations/product-specific/deposits/accounts/balances
+  nai:
+    urlService: http://demo9798492.mockable.io
+    pathRetrieveList: /int/testing/v1/business-support/document-management/document-services/customers/actions/retrieve/information
+  consolidatedBalance:
+    urlService: http://demo8845769.mockable.io
+    pathRetrieveBalance: /v2/operations/specific-product/market-operations/fund-administration-consolidated-balances/funds/retrieve-customer-consolidated-balance
+  banner:
+    urlBanner: http://demo8845769.mockable.io/banner/status
+security:
+  jwt:
+    publicKey: -----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0iXpieRgI8GOAyfFeK7f0Eead9XPIWlQMUpmgxmMOR3RqzHfp3tiRF6oqO3jBo+fnVzpWZC+LvkX9hpIQ2ysjytVGG5s6MaULDysPAhrpV+kpHWxeWb5DLnakiACkntc5OSXhOPXjsarAjwX1tQkeqq3LOF0D5h11c35QKdxQbtp9Ca0dn3W1YCHnJtIOiCTbPRpdFxG5XMq2YotFbdMPoYnm5irPVEUB50dsE7fPBIEeenTS5CLYs14HbGwpT+k+ulVcF9CGvGP0b9GHi7bMlhtjRfenZIYTo2nb/m0xge7mZdzKsEFH4Vhm/MTWv8V6/m/Od8ELLKRVutgG23F+wIDAQAB-----END PUBLIC KEY-----
+    key: -----BEGIN PRIVATE KEY-----MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDSJemJ5GAjwY4DJ8V4rt/QR5p31c8haVAxSmaDGYw5HdGrMd+ne2JEXqio7eMGj5+dXOlZkL4u+Rf2GkhDbKyPK1UYbmzoxpQsPKw8CGulX6SkdbF5ZvkMudqSIAKSe1zk5JeE49eOxqsCPBfW1CR6qrcs4XQPmHXVzflAp3FBu2n0JrR2fdbVgIecm0g6IJNs9Gl0XEblcyrZii0Vt0w+hiebmKs9URQHnR2wTt88EgR56dNLkItizXgdsbClP6T66VVwX0Ia8Y/Rv0YeLtsyWG2NF96dkhhOjadv+bTGB7uZl3MqwQUfhWGb8xNa/xXr+b853wQsspFW62AbbcX7AgMBAAECggEBAKltk5pvG+v4E20L1bP1GdGsyScwpKzFYbg7yeaM5HbwSakCrtUzLwj8YHLCSLVzeja/QAvMHOl2PxFWI0jpBz7uqs7lyLzrzW7VA+/qwg80y2Mk2I+Oq+DMvyHs2OYMu9p3SooDwDkGh71ngbjclQSpOsHei1o/i1FznS+5UCCzaRQpnBxfvIgP6ocgTm4qOl/KAV7JKJNJ5pAytgPHQFwnVZTw5TR4RqEashfMxPzVuNQvooQy7TPEs+bjoMrVKcqg5KKsXR340sP50O87RJXztd6O3dEJjchGGj/IRcDaTIPLhGT3MJiswRtShuFwJ57CJ8k88EVOWEIGsEcH92ECgYEA7oWhELbbIu/MeuRgt2fzYpKCOeTbu6/AvK7/T2FiMpIL4thgBkAyiM/gDkVQ3KIO6BXhytIRGT7iTTVzGIBFpzP7CbCj4+lqgRcruG0qQZucpqw8LHAhyGem8OtVXximgJtUnNB9UOeeDeE3YKcBzzv15qx9N8cLUXzjexjD/kkCgYEA4YwGVMZyyAPCb7yV0YxCkHlerJiviJ7Pz6WlzZ3daKZsP5suDXgn3DqmFtGV8gsXSX+FB9h2Zfdfyc5ElZMJJLjghTF/T3QPMsqF9rTiH7O+cUaPkdA5WLOI/SEzXvbqvAtLQcr9fg1Mw1QoG9b3GTU+bdHlf17ARWb6GDQ58iMCgYBx+m8mAosi3b4zt3A0FDtsjiAmtCMARBLw1xrvftSi38FITCdOtVywnc0uZJcoZ1SCOPqlpc4/5xnS1UjDm4AtTxyV28/lOAQJ3d2pipjXsxmfV8yFW6v5DPbsRziLcccWy6MaMFLB13xim42P5R5rPfbanPBVOAtDjE9T4li96QKBgHVdvwGoTpxEUI6CbNehDBZQAfMAdP873Nmp0hCgIFHPoC6tGpbJurxADKN9JnDQUqrdX6VIf7vpsP+7hTbsT2q7haHpstzugOYmOvW5BJ4Ik4YweI8g8mZ07kkCWNAG3vlBS0UOU0CfvR07kq+B+g01Bqpw+eKAtL6oqmWj769PAoGBALnhcZju/kHTd7xOaXWIG70h9cBRrwFNTNJLLbveoEfK8O3L1B4PLF/1+zqwAg801fFoqmQ239tvaTLxlL6Q4McyDkN39u25OVgGWEy/i3zldcqEQH25ywyLve6sMWFPGbKfbVrxOcWXoxDKDY2JrfPMVMaruGlSEE1KyHi7c8fn-----END PRIVATE KEY-----
+  service:
+    ibmClientId: a97f8c5d-6ee0-4e84-94b7-0f5e749017b9
+    ibmClientSecret: N0tM3vR7kM3vF3xJ5sA8sW3xJ0yN7nP5nQ6uV3cR8mH6hO4eY1
+dynamo:
+  table:
+    name: nu0170001-modulo-solucion-cuentas-dev-dynamo-consumers
+redirectUri:
+  uri: https://autenticaqa3.bancolombia.com/login/oauth/authorize?response_type=code&client_id=MSC&redirect_uri=https://cuentas-qa.apps.ambientesbc.com/
+oauth:
+  validationTime: 59
+whoEnters:
+  numberOfAttempts: 3
+validPlans:
+  plans: "10,12,31,18,13,NOMINA"

@@ -1,0 +1,16 @@
+{
+    "meta": {
+        "_messageId": "a97f8c5d-6ee0-4e84-94b7-a97f8c5da97f",
+        "_requestDateTime": "2021-10-20T19:47:22.809Z",
+        "_applicationId": "a97f8c5d-6ee0-4e84-94b7-0f5e749017b9"
+    },
+    "data": {
+        "agreement": {
+            "collectionGroupValue": 5701.5,
+            "amountCompany": 633.5
+        },
+        "shareCost": {
+            "amount": 1900.5
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "_messageId": "33399-00023-23023023-2323",
+    "_requestDateTime": "2021-01-10T12:24:25-05:00",
+    "_applicationId": "8fec29f9-fe82-4d00-a55c-30a5df6b1d66"
+  },
+  "status": 404,
+  "title": "Not Found",
+  "errors": [
+    {
+      "code": "BP12700025",
+      "detail": "Cliente no existe"
+    }
+  ]
+}

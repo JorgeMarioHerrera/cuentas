@@ -1,0 +1,13 @@
+{
+  "applicationId": "202020202022",
+  "errorCode":  "CODE_01",
+  "errorDescription": {
+    "errorType": "111111",
+    "errorService": "Servicio5",
+    "errorOperation": "funcional",
+    "exceptionType": "negocio",
+    "functionalCode": "Ocurrio un error en la consulta del cliente!!",
+    "functionalDescription": "32323232",
+    "technicalDescription": "El cliente no Existe"
+  }
+}

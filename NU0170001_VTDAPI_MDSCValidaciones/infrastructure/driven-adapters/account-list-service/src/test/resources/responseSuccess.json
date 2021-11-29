@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "_messageId": "33399-00023-23023093-2325",
+    "_requestDateTime": "2021-10-19T07:48:48.673Z",
+    "responseSize": 1,
+    "flagMoreRecords": false
+  },
+  "data": {
+    "account": [
+      {
+        "type": "CUENTA_DE_AHORRO",
+        "number": "62400241550",
+        "name": "",
+        "allowDebit": true,
+        "allowCredit": true,
+        "currency": "COP",
+        "inactiveDays": 0,
+        "openingDate": "2021-02-02",
+        "jointHolder": false,
+        "overdraftDays": 0,
+        "overdueDays": 0,
+        "daysTerm": 0,
+        "regime": {
+          "regime": "",
+          "type": ""
+        },
+        "balances": {
+          "available": 500001,
+          "current": 500001,
+          "effective": 500001
+        },
+        "specifications": [
+          {
+            "name": "Permite débito automático",
+            "value": true
+          },
+          {
+            "name": "Cuenta Inembargable",
+            "value": false
+          },
+          {
+            "name": "Cuenta Centralizadora",
+            "value": false
+          },
+          {
+            "name": "Cuenta CATS",
+            "value": false
+          },
+          {
+            "name": "Cuenta AFC",
+            "value": false
+          },
+          {
+            "name": "Cuenta de Empleado",
+            "value": false
+          },
+          {
+            "name": "Cuenta de Nómina",
+            "value": false
+          },
+          {
+            "name": "Cuenta de pensión",
+            "value": false
+          },
+          {
+            "name": "Cuenta de concordato",
+            "value": false
+          },
+          {
+            "name": "Cuenta Maestra",
+            "value": false
+          },
+          {
+            "name": "Adelanto de Ingreso",
+            "value": false
+          },
+          {
+            "name": "Ahorro Programado",
+            "value": false
+          },
+          {
+            "name": "Es exenta de GMF",
+            "value": false
+          },
+          {
+            "name": "Tiene Cuentas x cobrar",
+            "value": false
+          },
+          {
+            "name": "Tiene Embargo",
+            "value": false
+          },
+          {
+            "name": "Tiene Bloqueo por investigación",
+            "value": false
+          },
+          {
+            "name": "Tiene Bloqueo por Sucesión o Fallecimiento",
+            "value": false
+          },
+          {
+            "name": "Tiene Bloqueo Temporal",
+            "value": false
+          },
+          {
+            "name": "Campañas Políticas",
+            "value": false
+          },
+          {
+            "name": "Permite crear Bolsillos",
+            "value": true
+          },
+          {
+            "name": "Tiene bolsillos",
+            "value": false
+          },
+          {
+            "name": "Permite más bolsillos",
+            "value": true
+          }
+        ],
+        "office": {
+          "code": "624"
+        },
+        "participant": {
+          "relation": "TITULAR"
+        },
+        "status": "ACTIVO",
+        "plan": {
+          "name": "PLAN ESTANDAR"
+        }
+      }
+    ]
+  },
+  "links": {
+    "self": "https://api-aws-qa.apps.ambientesbc.com/int/testing/v1/operations/product-specific/deposits/customers/accounts/retrieve-list"
+  }
+}

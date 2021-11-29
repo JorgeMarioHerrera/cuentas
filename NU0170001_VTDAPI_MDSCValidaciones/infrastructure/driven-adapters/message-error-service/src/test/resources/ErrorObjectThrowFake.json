@@ -1,0 +1,10 @@
+{
+  "errorCode": "CODE_01",
+  "applicationId": "20202020",
+  "errorDescription": {
+    "errorService": "Servicio5",
+    "errorType": "111111",
+    "errorOperation": "funcional",
+    "exceptionType": "negocio"
+  }
+}

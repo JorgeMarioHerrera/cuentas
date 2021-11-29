@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+    "_version": "1.0",
+    "_requestDateTime": "2017-01-24T05:00:00.000Z",
+    "_responseSize": 1,
+    "_clientRequest": "acxff62e-6f12-42de-9012-3e7304418abd",
+    "_clientTraceEcho": "trace"
+  },
+  "data": [
+    {
+      "documentType": "CC",
+      "documentNumber": "25130542",
+      "customerName": "Robin Hood Externo",
+      "lastEntryDate": "2017/05/15",
+      "lastHour": "09:44:07",
+      "tokenType": "Bearer",
+      "sessionToken": "9a5s5ffg2r23r31tr4y"
+    }
+  ],
+  "links": {
+    "self": "http://ip.hu/bagida",
+    "related": "http://etu.cr/icu"
+  }
+}

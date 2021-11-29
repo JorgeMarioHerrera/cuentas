@@ -1,0 +1,32 @@
+{
+  "idSession": "ID_SESSION_TEST",
+  "numberDocument": "1214624600",
+  "ipClient": "181.51.32.251",
+  "dateAndHourTransaction": "18/02/2021",
+  "functionalStep": "STEP-TEST",
+  "deviceBrowser": "Mozilla/5.0 (Macintosh; Intel Mac OS X)",
+  "userAgent": "userAgent",
+  "deviceOS": "Mac OS X",
+  "device": "Macintosh",
+  "typeDocument": "CC",
+  "typeClient": "1",
+
+  "validSession": true,
+
+  "jwt": "eyy.test.jwt",
+  "concurrentSessions": false,
+
+  "greaterThanAmount": true,
+  "officeCode": "009001",
+
+  "account": "1234 0000 1111 1111",
+  "typeAccount": "1",
+
+  "attemptsGenerate": 1,
+  "attemptsValidate": 1,
+  "mobilePhone": 3043306800,
+  "email": "eddgonza@bancolombia.com.co",
+  "validateToken": false,
+
+  "attemptsManagement": 1
+}

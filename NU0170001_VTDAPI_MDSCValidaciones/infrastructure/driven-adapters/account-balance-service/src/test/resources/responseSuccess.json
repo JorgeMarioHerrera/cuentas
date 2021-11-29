@@ -1,0 +1,34 @@
+{
+  "data": {
+    "account": {
+      "balances": {
+        "available": 98000000,
+        "availableOverdraftBalance": 98000000,
+        "overdraftValue": 0,
+        "availableOverdraftQuota": 0,
+        "current": 98000000,
+        "clearing": 0,
+        "receivable": 0,
+        "blocked": 0,
+        "clearingStartDay": 0,
+        "currentStartDay": 98000000,
+        "pockets": 0,
+        "clearingQuota": 0,
+        "agreedRemittanceQuota": 0,
+        "remittanceQuotaUsage": 0,
+        "normalInterest": 0,
+        "suspensionInterest": 0,
+        "effective": 98000000,
+        "availableStartDay": 0,
+        "effectiveStartDay": 98000000
+      }
+    }
+  },
+  "meta": {
+    "_messageId": "55765253799999-W96aWxsYS81LjA77987851399999",
+    "_requestDateTime": "2021-10-25T16:47:08.437Z"
+  },
+  "link": {
+    "self": "https://api-aws-qa.apps.ambientesbc.com/int/testing/v1/operations/product-specific/deposits/accounts/balances"
+  }
+}

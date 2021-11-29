@@ -1,0 +1,106 @@
+management.endpoint.gateway.enabled: true
+management.endpoints.web.exposure.include: gateway
+server:
+  port: 8080
+paths:
+  validacionesApi:
+    baseUri: http://validaciones-api
+    inputData: /modulo-solucion-cuentas/validaciones-api/inputData
+    prepareClientData: /modulo-solucion-cuentas/validaciones-api/prepareClientData
+    changeAuthCode: /modulo-solucion-cuentas/validaciones-api/changeAuthCode
+    whoEnters: /modulo-solucion-cuentas/validaciones-api/whoEnters
+    banner: /modulo-solucion-cuentas/validaciones-api/banner
+  security:
+    baseUri: http://validaciones-api
+    validate: /modulo-solucion-cuentas/validaciones-api/session/validate
+    finish: /modulo-solucion-cuentas/validaciones-api/session/finish
+  catalogosApi:
+    baseUri: http://catalogue-api
+    catalogueTask: /modulo-solucion-cuentas/catalogue-api/cataloguetask
+    catalogue: /modulo-solucion-cuentas/catalogue-api/catalogue
+    findcatalogue: /modulo-solucion-cuentas/catalogue-api/findcatalogue
+  cuentasApi:
+    baseUri: http://cuentas-api
+    callServiceDelivery: /modulo-solucion-cuentas/cuentas-api/callServiceDelivery
+    saveInformationDelivery: /modulo-solucion-cuentas/cuentas-api/saveInformationDelivery
+    create: /modulo-solucion-cuentas/cuentas-api/create
+    agremmentService: /modulo-solucion-cuentas/cuentas-api/agremmentService
+  tokenApi:
+    baseUri: http://token-api
+    validateSoftToken: /modulo-solucion-cuentas/token-api/validateSoftToken
+  finalizacionApi:
+    baseUri: http://finalizacion-api
+    finalization: /modulo-solucion-cuentas/finalizacion-api/finalization
+    feedback: /modulo-solucion-cuentas/finalizacion-api/feedback
+spring:
+  application:
+    name: NU0104001_VTDAPI_ASOEdgeService
+    tagList: pmo,captaciones,dev,edge-service-api
+  cloud:
+    gateway:
+      routes:
+        - id: validacionesApiNoSecure
+          uri: ${paths.validacionesApi.baseUri}
+          predicates:
+            - Path=/modulo-solucion-cuentas/edgeservice-api/validacionesApi/inputData,/modulo-solucion-cuentas/edgeservice-api/validacionesApi/changeAuthCode,/modulo-solucion-cuentas/edgeservice-api/validacionesApi/banner
+            - Method=POST
+          filters:
+            - IpFilter
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/validacionesApi/inputData,${paths.validacionesApi.inputData}
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/validacionesApi/changeAuthCode,${paths.validacionesApi.changeAuthCode}
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/validacionesApi/banner,${paths.validacionesApi.banner}
+            - RemoveResponseHeader=server
+        - id: validacionesApi
+          uri: ${paths.validacionesApi.baseUri}
+          predicates:
+            - Path=/modulo-solucion-cuentas/edgeservice-api/validacionesApi/prepareClientData,/modulo-solucion-cuentas/edgeservice-api/validacionesApi/whoEnters,/modulo-solucion-cuentas/edgeservice-api/validacionesApi/finish
+            - Method=POST
+          filters:
+            - IpFilter
+            - AuthFilter
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/validacionesApi/prepareClientData,${paths.validacionesApi.prepareClientData}
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/validacionesApi/whoEnters,${paths.validacionesApi.whoEnters}
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/validacionesApi/finish,${paths.security.finish}
+            - RemoveResponseHeader=server
+        - id: catalogosApi
+          uri: ${paths.catalogosApi.baseUri}
+          predicates:
+            - Path=/modulo-solucion-cuentas/edgeservice-api/catalogueApi/cataloguetask,/modulo-solucion-cuentas/edgeservice-api/catalogueApi/catalogue,/modulo-solucion-cuentas/edgeservice-api/catalogueApi/findcatalogue
+            - Method=POST
+          filters:
+            - AuthFilter
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/catalogueApi/cataloguetask,${paths.catalogosApi.catalogueTask}
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/catalogueApi/catalogue,${paths.catalogosApi.catalogue}
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/catalogueApi/findcatalogue,${paths.catalogosApi.findcatalogue}
+            - RemoveResponseHeader=server
+        - id: cuentasApi
+          uri: ${paths.cuentasApi.baseUri}
+          predicates:
+            - Path=/modulo-solucion-cuentas/edgeservice-api/cuentasApi/callServiceDelivery,/modulo-solucion-cuentas/edgeservice-api/cuentasApi/saveInformationDelivery,/modulo-solucion-cuentas/edgeservice-api/cuentasApi/create,/modulo-solucion-cuentas/edgeservice-api/cuentasApi/agremmentService
+            - Method=POST
+          filters:
+            - AuthFilter
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/cuentasApi/callServiceDelivery,${paths.cuentasApi.callServiceDelivery}
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/cuentasApi/saveInformationDelivery,${paths.cuentasApi.saveInformationDelivery}
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/cuentasApi/create,${paths.cuentasApi.create}
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/cuentasApi/agremmentService,${paths.cuentasApi.agremmentService}
+            - RemoveResponseHeader=server
+        - id: tokenApi
+          uri: ${paths.tokenApi.baseUri}
+          predicates:
+            - Path=/modulo-solucion-cuentas/edgeservice-api/tokenApi/validateSoftToken
+            - Method=POST
+          filters:
+            - AuthFilter
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/tokenApi/validateSoftToken,${paths.tokenApi.validateSoftToken}
+            - RemoveResponseHeader=server
+        - id: finalizacionApi
+          uri: ${paths.finalizacionApi.baseUri}
+          predicates:
+            - Path=/modulo-solucion-cuentas/edgeservice-api/finalizacionApi/finalization, /modulo-solucion-cuentas/edgeservice-api/finalizacionApi/feedback
+            - Method=POST
+          filters:
+            - AuthFilter
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/finalizacionApi/finalization,${paths.finalizacionApi.finalization}
+            - RewritePath=/modulo-solucion-cuentas/edgeservice-api/finalizacionApi/feedback,${paths.finalizacionApi.feedback}
+            - RemoveResponseHeader=server

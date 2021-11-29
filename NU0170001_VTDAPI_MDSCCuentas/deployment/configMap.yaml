@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: #{configmapName}#
+  namespace: #{namespace}#
+data:
+  application.yaml: |-
+    spring:
+      redis:
+        server:
+          address: #{redis-address}#
+          port: #{redis-port}#
+    log4j:
+      level:
+        state: #{log4j-level}#
+    logging:
+      level:
+        org:
+          springframework:
+            web: #{log-spring}#
+    amazon:
+      dynamodb:
+        endpoint: #{amazon-dynamodb-endpoint}#
+        region : #{amazon-dynamodb-region}#
+    dynamo:
+      table:
+        name: #{dynamo-table-catalogue}#
+    aws:
+      accessKeyId: #{aws-accessKeyId}#
+      secretKey : #{aws-secretKey}#
+      sessionToken : #{aws-sessionToken}#
+    services:
+      accountsManagement:
+        requestTimeout: #{accounts-management-request-timeout}#
+        connectionTimeout: #{accounts-management-connection-timeout}#
+        urlService: #{accounts-management-url-service}#
+        showBody: #{accounts-management-show-body}#
+        systemId: #{accounts-management-system-id}#
+        userName: #{accounts-management-user-name}#
+      delivery:
+        url: #{debit-delivery-url}#
+        path: #{debit-delivery-path}#
+      assignAdvicer:
+        requestTimeout: #{assign-adviser-request-timeout}#
+        connectionTimeout: #{assign-adviser-connection-timeout}#
+        urlService: #{assign-adviser-url-service}#
+        showBody: #{assign-adviser-show-body}#
+        systemId: #{assign-adviser-system-id}#
+        userName: #{assign-adviser-user-name}#
+      createAccount:
+        office: #{create-account-office}#
+        documentVersion: #{create-account-document-version}#
+      messageError:
+        urlService: #{message-error-url-service}#
+      kinesis:
+        firehose:
+          lzReportHead: #{lz_report_head}#
+          nameDeliveryStream: #{name-delivery-stream}#
+      agremment:
+         size: #{accounts-agremment-size}#
+         key: #{accounts-agremment-key}#
+         maxtry: #{accounts-agremment-maxtry}#
+         url: #{accounts-agremment-url}#
+         path: #{accounts-agremment-path}#  
+      debitCards:
+         shareCost:
+            endpoint: #{debitCards-shareCost-endpoint}#
+    security:
+      service:
+        ibmClientId: #{ibm-client-id}#
+        ibmClientSecret: #{ibm-client-secret}#
+        certificate: #{X-client-certificate}#

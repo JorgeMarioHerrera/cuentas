@@ -1,0 +1,12 @@
+dependencies {
+    implementation project(':usecase')
+    implementation project(':model')
+    implementation project(':common')
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.5.4'
+    compile 'org.springframework:spring-context'
+    //Librerias Banco
+    implementation group: 'co.com.bancolombia', name: 'technical-log', version: '1.1.1'
+    //Swagger
+    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+}

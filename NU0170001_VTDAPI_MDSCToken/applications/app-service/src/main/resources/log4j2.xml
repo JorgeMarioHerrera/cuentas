@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration packages="co.com.bancolombia.logging.technical">
+    <Appenders>
+        <Console name="JSON_TECH_APPENDER" target="SYSTEM_OUT">
+            <TechnicalJsonLayout/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO" additivity="false">
+            <appender-ref ref="JSON_TECH_APPENDER" />
+        </Root>
+    </Loggers>
+</Configuration>

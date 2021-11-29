@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+    "_requestDate": "2017-01-24T05:00:00.000Z",
+    "_version": "1.1",
+    "_responseSize": "1",
+    "_clientRequest": "13456789"
+  },
+  "errors":
+    {
+      "code": "BP12900003",
+      "detail": "Cuenta no existe.",
+      "href": "href",
+      "id": "2",
+      "status": "status",
+      "title": "tittle"
+    }
+}

@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "_messageId": "8fec29f9-fe82-4d00-a55c-30a5df6b1d66",
+    "_requestDateTime": "2021-08-11T16:23:44.585Z",
+    "_applicationId": "a3006e44-389c-41a7-9c89-b3c6acbb7aee"
+  },
+  "data": {
+    "availableBalance": "416761859.66",
+    "totalConsolidatedBalance": "426632920.57",
+    "numberFiduciaryFunds": "40",
+    "numberSecuritiesFunds": "341"
+  }
+}

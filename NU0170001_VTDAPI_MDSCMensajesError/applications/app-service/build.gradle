@@ -1,0 +1,21 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+	implementation project(':api-rest')
+	implementation project(':dynamo')
+    implementation project(':model')
+    implementation project(':usecase')
+    implementation project(':common')
+    implementation group: 'co.com.bancolombia', name: 'technical-log', version: '1.1.1'
+    compile 'org.springframework.boot:spring-boot-starter'
+    runtime('org.springframework.boot:spring-boot-devtools')
+    //Swagger
+    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+}
+configurations {
+    compile.exclude group: "org.apache.logging.log4j", module:"log4j-to-slf4j"
+}
+task explodedJar(type: Copy) {
+    with jar
+    into "${buildDir}/exploded"
+}

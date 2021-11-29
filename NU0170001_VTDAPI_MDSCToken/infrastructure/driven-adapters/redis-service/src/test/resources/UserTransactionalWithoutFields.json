@@ -1,0 +1,7 @@
+{
+  "idSession": "ID_SESSION_TEST",
+
+  "validateToken": false,
+
+  "attemptsManagement": 1
+}

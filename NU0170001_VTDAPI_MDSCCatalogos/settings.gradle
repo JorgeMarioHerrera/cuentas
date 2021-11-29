@@ -1,0 +1,18 @@
+rootProject.name = 'NU0170001_VTDAPI_MDSCCatalogos'
+
+include ':app-service'
+include ':model'
+include ':usecase'
+project(':app-service').projectDir = file('./applications/app-service')
+project(':model').projectDir = file('./domain/model')
+project(':usecase').projectDir = file('./domain/usecase')
+include ':dynamondb'
+project(':dynamondb').projectDir = file('./infrastructure/driven-adapters/dynamondb')
+include ':rest-ctrl-catalog'
+project(':rest-ctrl-catalog').projectDir = file('./infrastructure/entry-points/rest-ctrl-catalog')
+include ':jersey-client'
+project(':jersey-client').projectDir = file('./infrastructure/driven-adapters/jersey-client')
+include ':property-of-log'
+project(':property-of-log').projectDir = file('./infrastructure/driven-adapters/property-of-log')
+include ':kinesis-firehose-service'
+project(':kinesis-firehose-service').projectDir = file('./infrastructure/driven-adapters/kinesis-firehose-service')

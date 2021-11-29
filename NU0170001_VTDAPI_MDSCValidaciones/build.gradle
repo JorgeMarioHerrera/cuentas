@@ -1,0 +1,36 @@
+buildscript {
+    ext {
+        cleanArchitectureVersion = '1.6.9'
+        springBootVersion = '2.2.8.RELEASE'
+        springCloudVersion = 'Hoxton.SR6'
+        sonarVersion = '2.6.1'
+        jacocoVersion = '0.8.5'
+    }
+}
+
+plugins {
+    id 'co.com.bancolombia.cleanArchitecture' version "1.6.9"
+    id 'org.springframework.boot' version "2.2.8.RELEASE"
+    id 'org.sonarqube' version "2.6.1"
+    id 'jacoco'
+}
+
+sonarqube {
+    properties {
+        property "sonar.sourceEnconding", "UTF-8"
+        property "sonar.modules", "applications/app-service," +
+                "domain/model, domain/usecase," +
+                "infraestructure/driven-adapters/*, infraestructure/entry-points/*"
+        property "sonar.sources", "src/main, build.gradle"
+        property "sonar.test", "src/test"
+        property "sonar.java.binaries", ""
+        property "sonar.junit.reportsPath", ""
+        property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.coverage.jacoco.xmlReportPaths",
+                "${projectDir}/build/reports/jacocoMergedReport/jacocoMergedReport.xml"
+        property "sonar.exclusions", "domain/model/src/main/java/co/com/bancolombia/model/**, " +
+                "infrastructure/driven-adapters/redis-service/src/main/java/co/com/bancolombia/redisservice/template/**"
+        property "sonar.coverage.exclusions", "applications/**"
+    }
+}
+apply from: './main.gradle'

@@ -1,0 +1,30 @@
+rootProject.name = 'NU0170001_VTDAPI_MDSCCuentas'
+
+include ':app-service'
+include ':model'
+include ':usecase'
+project(':app-service').projectDir = file('./applications/app-service')
+project(':model').projectDir = file('./domain/model')
+project(':usecase').projectDir = file('./domain/usecase')
+include ':api-rest'
+project(':api-rest').projectDir = file('./infrastructure/entry-points/api-rest')
+include ':account-management-service'
+project(':account-management-service').projectDir = file('./infrastructure/driven-adapters/account-management-service')
+include ':assign-adviser-service'
+project(':assign-adviser-service').projectDir = file('./infrastructure/driven-adapters/assign-adviser-service')
+include ':message-error-service'
+project(':message-error-service').projectDir = file('./infrastructure/driven-adapters/message-error-service')
+include ':redis-service'
+project(':redis-service').projectDir = file('./infrastructure/driven-adapters/redis-service')
+include ':dynamondb'
+project(':dynamondb').projectDir = file('./infrastructure/driven-adapters/dynamondb')
+include ':common'
+project(':common').projectDir = file('./infrastructure/helpers/common')
+include ':kinesis-firehose-service'
+project(':kinesis-firehose-service').projectDir = file('./infrastructure/driven-adapters/kinesis-firehose-service')
+include ':delivery-service'
+project(':delivery-service').projectDir = file('./infrastructure/driven-adapters/delivery-service')
+include ':agremment-service'
+project(':agremment-service').projectDir = file('./infrastructure/driven-adapters/agremment-service')
+include ':cost-service'
+project(':cost-service').projectDir = file('./infrastructure/driven-adapters/cost-service')

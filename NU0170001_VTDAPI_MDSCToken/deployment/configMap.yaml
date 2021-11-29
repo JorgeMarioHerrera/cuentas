@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: #{configmapName}#
+  namespace: #{namespace}#
+data:
+  application.yaml: |-
+    spring:
+      redis:
+        server:
+          address: #{redis-address}#
+          port: #{redis-port}#
+    log4j:
+      level:
+        state: #{log4j-level}#
+    logging:
+      level:
+        org:
+          springframework:
+            web: #{log-spring}#
+    services:
+      customerData:
+        urlService: #{customer-data-url-service}#
+        pathRetrieveBasic: #{customer-data-path-retrieve-basic}#
+        pathRetrieveContact: #{customer-data-path-retrieve-contact}#
+      messageError:
+        urlService: #{message-error-url-service}#
+      kinesis:
+        firehose:
+          lzReportHead: #{lz_report_head}#
+          nameDeliveryStream: #{name-delivery-stream}#
+      token:
+        urlService: #{token-url-service}#
+        pathObtainToken: #{token-path-obtain-token}#
+        pathObtainTokenEmail: #{token-path-obtain-token-email}#
+        pathObtainTokenPhone: #{token-path-obtain-token-phone}#
+        pathValidateToken: #{token-path-validate-token}#
+      ssf:
+        urlService: #{ssf-url-service}#
+        channel: #{ssf-channel}#
+        attempts: #{ssf-attempts}#
+    security:
+      service:
+        ibmClientId: #{ibm-client-id}#
+        ibmClientSecret: #{ibm-client-secret}#

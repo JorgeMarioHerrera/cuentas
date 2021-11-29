@@ -1,0 +1,36 @@
+rootProject.name = 'NU0170001_VTDAPI_MDSCValidaciones'
+
+include ':app-service'
+project(':app-service').projectDir = file('./applications/app-service')
+include ':model'
+project(':model').projectDir = file('./domain/model')
+include ':usecase'
+project(':usecase').projectDir = file('./domain/usecase')
+include ':common'
+project(':common').projectDir = file('./infrastructure/helpers/common')
+include ':api-rest'
+project(':api-rest').projectDir = file('./infrastructure/entry-points/api-rest')
+include ':redis-service'
+project(':redis-service').projectDir = file('./infrastructure/driven-adapters/redis-service')
+include ':customer-data-service'
+project(':customer-data-service').projectDir = file('./infrastructure/driven-adapters/customer-data-service')
+include ':account-list-service'
+project(':account-list-service').projectDir = file('./infrastructure/driven-adapters/account-list-service')
+include ':account-balance-service'
+project(':account-balance-service').projectDir = file('./infrastructure/driven-adapters/account-balance-service')
+include ':consolidated-balance-service'
+project(':consolidated-balance-service').projectDir = file('./infrastructure/driven-adapters/consolidated-balance-service')
+include ':message-error-service'
+project(':message-error-service').projectDir = file('./infrastructure/driven-adapters/message-error-service')
+include ':notifications-service'
+project(':notifications-service').projectDir = file('./infrastructure/driven-adapters/notifications-service')
+include ':fua-service'
+project(':fua-service').projectDir = file('./infrastructure/driven-adapters/fua-service')
+include ':dynamo'
+project(':dynamo').projectDir = file('./infrastructure/driven-adapters/dynamo')
+include ':jwt-service'
+project(':jwt-service').projectDir = file('./infrastructure/driven-adapters/jwt-service')
+include ':kinesis-firehose-service'
+project(':kinesis-firehose-service').projectDir = file('./infrastructure/driven-adapters/kinesis-firehose-service')
+include ':banner-service'
+project(':banner-service').projectDir = file('./infrastructure/driven-adapters/banner-service')

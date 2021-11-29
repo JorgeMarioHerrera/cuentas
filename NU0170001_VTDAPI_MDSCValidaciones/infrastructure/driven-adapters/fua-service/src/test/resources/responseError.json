@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "_messageId": "f194502a-7f06-4bfa-8177-7931207f1887",
+    "_requestDateTime": "2021-01-09T21:36:30.590Z",
+    "_applicationId": "a97f8c5d-6ee0-4e84-94b7-0f5e749017b9"
+  },
+  "title": "Gateway Timeout",
+  "status": "504",
+  "errors": [
+    {
+      "code": "SA503",
+      "detail": "El servicio no esta disponible temporalmente,intente de nuevo más tarde."
+    }
+  ]
+}

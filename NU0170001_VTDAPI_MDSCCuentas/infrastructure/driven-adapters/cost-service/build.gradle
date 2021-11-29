@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':model')
+    compile project(':common')
+    compile 'org.springframework:spring-context'
+    compile group: 'javax', name: 'javaee-api', version: '8.0.1'
+    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.0'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.3'
+    testImplementation group: 'co.com.bancolombia', name: 'technical-log', version: '1.1.1'
+}

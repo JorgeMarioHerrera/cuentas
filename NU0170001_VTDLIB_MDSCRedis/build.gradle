@@ -1,0 +1,77 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = "UTF-8"
+
+ext {
+	grupo = project.hasProperty('grupo') ? project.getProperty('grupo') : 'co.com.bancolombia'
+	artefacto = project.hasProperty('artefacto') ? project.getProperty('artefacto') : 'lib.solucuionCuentas.redis'
+	numero = project.hasProperty('numero') ? project.getProperty('numero') : '1.0.0'
+	usuario = project.hasProperty('usuario') ? project.getProperty('usuario') : ''
+	clave = project.hasProperty('clave') ? project.getProperty('clave') : ''
+}
+
+repositories {
+//	mavenCentral()
+	maven {url 'https://artifactory.apps.bancolombia.com/maven-bancolombia'}
+}
+
+dependencies {
+//	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation group: 'org.springframework.data', name: 'spring-data-redis', version: '2.5.3'
+	//compile 'org.springframework:spring-context'
+	// Library for Authentication with Service Account
+	compile group: 'software.amazon.awssdk', name: 'sts', version: '2.15.47'
+	// Library for good practices
+//	compile group: 'com.amazonaws', name: 'aws-java-sdk-bom', version: '1.11.922', ext: 'pom'
+//	compile 'org.springframework.data:spring-data-redis'
+//	compile 'redis.clients:jedis'
+	implementation group: 'redis.clients', name: 'jedis', version: '3.6.3'
+//	compile 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	// https://mvnrepository.com/artifact/javax/javaee-api
+	compile group: 'javax', name: 'javaee-api', version: '8.0.1'
+	// Library Bancolombia for Log4J2
+	implementation group: 'co.com.bancolombia', name: 'technical-log', version: '1.1.1'
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok:1.18.16'
+	annotationProcessor 'org.projectlombok:lombok:1.18.16'
+	testCompileOnly 'org.projectlombok:lombok:1.18.16'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
+}
+
+jar	{
+	manifest.attributes provider: 'Modulo Solucion Cuentas Bancolombia'
+	archivesBaseName = 'lib.solucuionCuentas.redis'
+	version = "$numero"
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			groupId "$grupo"
+			artifactId "$artefacto"
+			version "$numero"
+			from components.java
+		}
+	}
+	repositories {
+		maven {
+			url 'https://artifactory.apps.bancolombia.com/maven-bancolombia'
+			credentials {
+				username = "$usuario"
+				password = "$clave"
+			}
+		}
+	}
+}
+ wrapper {
+	gradleVersion = '6.5'
+	distributionUrl 'https\\://services.gradle.org/distributions/gradle-6.5-bin.zip'
+ }

@@ -1,0 +1,24 @@
+rootProject.name = 'NU0170001_VTDAPI_MDSCFinalizacion'
+
+include ':app-service'
+project(':app-service').projectDir = file('./applications/app-service')
+include ':model'
+project(':model').projectDir = file('./domain/model')
+include ':usecase'
+project(':usecase').projectDir = file('./domain/usecase')
+include ':api-rest'
+project(':api-rest').projectDir = file('./infrastructure/entry-points/api-rest')
+include ':redis-service'
+project(':redis-service').projectDir = file('./infrastructure/driven-adapters/redis-service')
+include ':kinesis-firehose-service'
+project(':kinesis-firehose-service').projectDir = file('./infrastructure/driven-adapters/kinesis-firehose-service')
+include ':message-error-service'
+project(':message-error-service').projectDir = file('./infrastructure/driven-adapters/message-error-service')
+include ':common'
+project(':common').projectDir = file('./infrastructure/helpers/common')
+include ':redis-service'
+project(':redis-service').projectDir = file('./infrastructure/driven-adapters/redis-service')
+include ':email-notifications'
+project(':email-notifications').projectDir = file('./infrastructure/driven-adapters/email-notifications')
+include ':pdf-service'
+project(':pdf-service').projectDir = file('./infrastructure/driven-adapters/pdf-service')

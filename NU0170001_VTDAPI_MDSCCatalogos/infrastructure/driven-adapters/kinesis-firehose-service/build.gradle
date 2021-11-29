@@ -1,0 +1,7 @@
+dependencies {
+    compile project(':model')
+    compile 'org.springframework:spring-context'
+    compile group: 'co.com.bancolombia', name:'lib.solucion.cuentas.kinesisfirehose', version:'1.0.0.15'
+    implementation group: 'co.com.bancolombia', name: 'technical-log', version: '1.1.1'
+    compile group: 'co.com.bancolombia', name: 'VTD.lib.security', version: '1.0.0'
+}

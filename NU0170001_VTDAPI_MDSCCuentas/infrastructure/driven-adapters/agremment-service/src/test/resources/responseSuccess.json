@@ -1,0 +1,99 @@
+{
+    "meta": {
+        "_messageId": "a97f8c5d-6ee0-4e84-94b7-a97f8c5da97f",
+        "_requestDateTime": "2021-10-21T11:18:24.422Z",
+        "_applicationId": "a3006e44-389c-41a7-9c89-b3c6acbb7aee"
+    },
+    "data": {
+        "Pagination": {
+            "responseSize": "4",
+            "moreRegister": "false"
+        },
+        "agreement": [
+            {
+                "payer": {
+                    "name": "VELANDIA  GAMERO  HA",
+                    "identification": {
+                        "type": "TIPDOC_FS003",
+                        "number": "000000890900840"
+                    }
+                },
+                "employer": {
+                    "name": "",
+                    "identification": {
+                        "type": "TIPDOC_FS003",
+                        "number": "000000890900841"
+                    }
+                },
+                "agreementCode": "00013495",
+                "planCode": "025",
+                "chargesGroup": "0019",
+                "percentajeCharges": "00.00",
+                "status": "Activo"
+            },
+            {
+                "payer": {
+                    "name": "VELANDIA  GAMERO  HA",
+                    "identification": {
+                        "type": "TIPDOC_FS003",
+                        "number": "000000890900840"
+                    }
+                },
+                "employer": {
+                    "name": "DELAOSSA LAMUS ROSEL",
+                    "identification": {
+                        "type": "TIPDOC_FS003",
+                        "number": "000000890900841"
+                    }
+                },
+                "agreementCode": "00013495",
+                "planCode": "025",
+                "chargesGroup": "0019",
+                "percentajeCharges": "00.00",
+                "status": "Activo"
+            },
+            {
+                "payer": {
+                    "name": "DURAN GRANOBLES  ABI",
+                    "identification": {
+                        "type": "TIPDOC_FS003",
+                        "number": "000000890900938"
+                    }
+                },
+                "employer": {
+                    "name": "S . A",
+                    "identification": {
+                        "type": "TIPDOC_FS003",
+                        "number": "000000890900943"
+                    }
+                },
+                "agreementCode": "00013495",
+                "planCode": "025",
+                "chargesGroup": "0008",
+                "percentajeCharges": "00.00",
+                "status": "Activo"
+            },
+            {
+                "payer": {
+                    "name": "FERNANDEZ Y CIA SA",
+                    "identification": {
+                        "type": "TIPDOC_FS003",
+                        "number": "000000890901484"
+                    }
+                },
+                "employer": {
+                    "name": "DURAN GRANOBLES  ABI",
+                    "identification": {
+                        "type": "TIPDOC_FS003",
+                        "number": "000000890901518"
+                    }
+                },
+                "agreementCode": "00013495",
+                "planCode": "025",
+                "chargesGroup": "0019",
+                "percentajeCharges": "00.00",
+                "status": "Activo"
+            }
+        ]
+    }
+}

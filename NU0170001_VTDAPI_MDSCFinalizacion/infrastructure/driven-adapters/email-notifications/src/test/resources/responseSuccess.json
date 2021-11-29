@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+    "_version": "1.0",
+    "_requestDate": "2017-01-24T05:00:00.000Z",
+    "_responseSize": 1,
+    "_clientRequest": "acxff62e-6f12-42de-9012-3e7304418abd"
+  },
+  "data": [
+    {
+      "header": {
+        "type": "hahodnocpur",
+        "id": "5937087261966336"
+      },
+      "responseMessage": "38",
+      "responseMessageIds": [
+        {
+          "responseId": "1808346438959104"
+        }
+      ]
+    }
+  ],
+  "links": {
+    "self": "http://ka.pn/ceahzum"
+  }
+}

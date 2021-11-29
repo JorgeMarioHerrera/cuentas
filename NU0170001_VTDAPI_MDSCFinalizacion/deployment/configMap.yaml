@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: #{configmapName}#
+  namespace: #{namespace}#
+data:
+  application.yaml: |-
+    spring:
+      redis:
+        server:
+          address: #{redis-address}#
+          port: #{redis-port}#
+    log4j:
+      level:
+        state: #{log4j-level}#
+    logging:
+      level:
+        org:
+          springframework:
+            web: #{log-spring}#
+    services:
+      messageError:
+          urlService: #{message-error-url-service}#
+      email:
+        urlService: #{email-base-url}#
+        urlPathEmail: #{email-path-url}#
+      kinesis:
+        firehose:
+          lzReportHead: #{lz_report_head}#
+          nameDeliveryStream: #{name-delivery-stream}#
+      pdf:
+        dirTemplateWelcome: #{pdf-template-dir}#
+        templateFileName: #{pdf-template-name}#
+        urlGooglePlay: #{pdf-url-google-play}#
+        urlAppStore: #{pdf-url-app-store}#
+        urlRegulation: #{pdf-url-regulation}#
+    security:
+      service:
+        ibmClientId: #{ibm-client-id}#
+        ibmClientSecret: #{ibm-client-secret}#

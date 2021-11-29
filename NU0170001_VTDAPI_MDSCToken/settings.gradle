@@ -1,0 +1,20 @@
+rootProject.name = 'NU0170001_VTDAPI_MDSCToken'
+
+include ':app-service'
+include ':model'
+include ':usecase'
+project(':app-service').projectDir = file('./applications/app-service')
+project(':model').projectDir = file('./domain/model')
+project(':usecase').projectDir = file('./domain/usecase')
+include ':api-rest'
+project(':api-rest').projectDir = file('./infrastructure/entry-points/api-rest')
+include ':message-error-service'
+project(':message-error-service').projectDir = file('./infrastructure/driven-adapters/message-error-service')
+include ':redis-service'
+project(':redis-service').projectDir = file('./infrastructure/driven-adapters/redis-service')
+include ':kinesis-firehose-service'
+project(':kinesis-firehose-service').projectDir = file('./infrastructure/driven-adapters/kinesis-firehose-service')
+include ':common'
+project(':common').projectDir = file('./infrastructure/helpers/common')
+include ':ssf-service'
+project(':ssf-service').projectDir = file('./infrastructure/driven-adapters/ssf-service')

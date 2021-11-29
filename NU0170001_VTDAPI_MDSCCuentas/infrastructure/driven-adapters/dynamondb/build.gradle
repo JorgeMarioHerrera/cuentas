@@ -1,0 +1,13 @@
+dependencies {
+    compile project(':model')
+    compile project(':common')
+    compile 'org.springframework:spring-context'
+    compile group: 'software.amazon.awssdk', name: 'sts', version: '2.15.47'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb', version: '1.11.573'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-bom', version: '1.11.922', ext: 'pom'
+    compile group: 'software.amazon.awssdk', name: 'dynamodb', version: '2.15.47'
+    compile group: 'software.amazon.awssdk', name: 'dynamodb-enhanced', version: '2.15.49'
+    compile group: 'org.modelmapper.extensions', name: 'modelmapper-spring', version: '2.4.4'
+    implementation group: 'co.com.bancolombia', name: 'technical-log', version: '1.1.1'
+
+}

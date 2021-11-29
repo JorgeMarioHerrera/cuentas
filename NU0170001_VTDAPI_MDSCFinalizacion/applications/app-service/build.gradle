@@ -1,0 +1,29 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    implementation project(':model')
+    implementation project(':usecase')
+    implementation project(':redis-service')
+    implementation project(':message-error-service')
+    implementation project(':kinesis-firehose-service')
+    implementation project(':email-notifications')
+    implementation project(':api-rest')
+    implementation project(':pdf-service')
+    implementation group: 'co.com.bancolombia', name: 'technical-log', version: '1.1.1'
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.4'
+    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+    compile ('org.springframework.boot:spring-boot-starter:2.5.4') {
+        exclude group: 'com.squareup.okhttp3'
+    }
+    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.0'
+    runtime('org.springframework.boot:spring-boot-devtools:2.5.4')
+}
+
+configurations {
+    compile.exclude group: "org.apache.logging.log4j", module:"log4j-to-slf4j"
+}
+
+task explodedJar(type: Copy) {
+    with jar
+    into "${buildDir}/exploded"
+}

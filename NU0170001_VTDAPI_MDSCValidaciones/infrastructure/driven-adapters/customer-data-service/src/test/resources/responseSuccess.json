@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "_messageId": "33399-00023-23023023-2323",
+    "_requestDateTime": "2021-01-09T22:33:16-05:00",
+    "_applicationId": "8fec29f9-fe82-4d00-a55c-30a5df6b1d66"
+  },
+  "data": {
+    "mdmKey": "18614634",
+    "customer": {
+      "documentType": "TIPDOC_FS001",
+      "documentId": "123456789"
+    },
+    "typeCustomer": "PN",
+    "fullName": "PRUEBA DIRECCIONES ETAPA DOS",
+    "vinculationDate": "2021-02-02T00:00:00.0",
+    "relatedType": "TIRELA_0000",
+    "authorizeSharingInformation": "true",
+    "specialDial": "SIN MARCA"
+  },
+  "links": {
+    "self": "/v1/san"
+  }
+}

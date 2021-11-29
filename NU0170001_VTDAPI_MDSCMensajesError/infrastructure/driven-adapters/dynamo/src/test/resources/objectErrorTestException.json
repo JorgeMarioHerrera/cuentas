@@ -1,0 +1,13 @@
+  {
+    "errorCode":"TOKDATM-002",
+    "applicationId":"ATD",
+    "errorDescription":{
+      "errorService":"Api_Token",
+      "errorType":"técnico",
+      "errorOperation":"validate",
+      "exceptionType":"Excepciones de Sistema",
+      "technicalDescription":"El entorno de Java tiene problemas",
+      "functionalCode":"TOKDATM-002",
+      "functionalDescription":"El entorno Java o la aplicación Java no se encuentran en un estado apropiado para la operación solicitada."
+    }
+  }

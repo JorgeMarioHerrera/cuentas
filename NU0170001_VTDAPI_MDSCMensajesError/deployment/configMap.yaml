@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: #{configmapName}#
+  namespace: #{namespace}#
+data:
+  application.yaml: |-
+    dynamo:
+      table:
+        name: #{dynamo-table-name}#
+    log4j:
+      level:
+        state: #{log4j-level}#
+    logging:
+      level:
+        org:
+          springframework:
+            web: #{log-spring}#
+    banner:
+      value : #{banner-value}#

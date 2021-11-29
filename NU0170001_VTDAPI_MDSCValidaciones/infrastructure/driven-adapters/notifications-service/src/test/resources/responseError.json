@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "_messageId": "a97f8c5d-6ee0-4e84-94b7-0f5e749017b9",
+    "_version": "1.0.0",
+    "_requestDate": "2021-07-01T19:13:57",
+    "_clientRequest": "a97f8c5d-6ee0-4e84-94b7-0f5e749017b9"
+  },
+  "errors": [
+    {
+      "status": "404",
+      "detail": "USUARIO NO EXISTE EN SISTEMA DE ALERTAS Y NOTIFICACIONES",
+      "code": "BP2225",
+      "title": "Not Found",
+      "href": "https://tools.ietf.org/html/rfc7231#section-6.5.4"
+    }
+  ]
+}

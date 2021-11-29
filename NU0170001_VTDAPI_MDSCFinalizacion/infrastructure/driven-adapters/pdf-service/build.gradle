@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':model')
+    compile project(':common')
+    compile 'org.springframework:spring-context'
+    implementation group: 'co.com.bancolombia', name: 'technical-log', version: '1.1.1'
+    compile (group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.24')
+
+
+}

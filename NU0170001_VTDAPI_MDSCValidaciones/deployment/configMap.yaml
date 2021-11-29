@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: #{configmapName}#
+  namespace: #{namespace}#
+data:
+  application.yaml: |-
+    spring:
+      redis:
+        server:
+          address: #{redis-address}#
+          port: #{redis-port}#
+    log4j:
+      level:
+        state: #{log4j-level}#
+    logging:
+      level:
+        org:
+          springframework:
+            web: #{log-spring}#
+    services:
+      fua:
+        urlService: #{fua-url-service}#
+        urlPathConsume: #{fua-path-validate-code}#
+        grantType: #{fua-grantType}#
+        clientId: #{registry-app}#
+        redirectUri: #{fua-redirect-uri}#
+        authBasic: #{fua-auth-basic}#
+      customerData:
+        urlService: #{customer-data-url-service}#
+        pathRetrieveBasic: #{customer-data-path-retrieve-basic}#
+        pathRetrieveContact: #{customer-data-path-retrieve-contact}#
+        pathRetrieveDetailed: #{customer-data-path-retrieve-detailed}#
+      messageError:
+        urlService: #{message-error-url-service}#
+      kinesis:
+        firehose:
+          lzReportHead: #{lz_report_head}#
+          nameDeliveryStream: #{name-delivery-stream}#
+      accountList:
+        urlService: #{account-list-url-service}#
+        pathRetrieveList: #{account-list-path-retrieve-list}#
+      accountBalance:
+        urlService: #{account-balance-url-service}#
+        pathBalances: #{account-balance-path-balances}#
+      nai:
+        urlService: #{nai-url-service}#
+        pathRetrieveList: #{nai-url-path-information}#
+      consolidatedBalance:
+        urlService: #{consolidated-balance-url-service}#
+        pathRetrieveBalance: #{consolidated-balance-path-retrieve-balance}#
+      banner:
+        urlBanner: #{banner-url}#
+    security:
+      jwt:
+        publicKey: #{jwt-public}#
+        key: #{jwt-secret}#
+      service:
+        ibmClientId: #{ibm-client-id}#
+        ibmClientSecret: #{ibm-client-secret}#
+    dynamo:
+      table:
+        name: #{dynamo-table-consumers}#
+    redirectUri:
+      uri: #{redirect-fua-url}#
+    oauth:
+      validationTime: #{oauth-validation-time}#
+    whoEnters:
+      numberOfAttempts: #{who-enters-attempts-redis}#
+    validPlans:
+      plans: #{valid-plan-codes}#

@@ -1,0 +1,10 @@
+dependencies {
+    compile project(':model')
+    compile project(':common')
+    compile 'org.springframework:spring-context'
+    //Librerias Banco
+    implementation group: 'co.com.bancolombia', name: 'technical-log', version: '1.1.1'
+    implementation 'joda-time:joda-time:2.10.9'
+    implementation 'javax.servlet:javax.servlet-api:3.0.1'
+    implementation group: 'org.bitbucket.b_c', name: 'jose4j', version: '0.7.8'
+}

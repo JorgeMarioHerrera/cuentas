@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "_messageId": "33399-00023-23023023-2323",
+    "_requestDateTime": "2021-01-10T01:58:48-05:00",
+    "_applicationId": "8fec29f9-fe82-4d00-a55c-30a5df6b1d66"
+  },
+  "data": {
+    "contact": [
+      {
+        "mdmKey": "18614634",
+        "addressClass": "CLASED_Z002",
+        "dateLastUpdate": "2010-05-01T00:00:00.0",
+        "address": "CR 6 14 18",
+        "neighbourhood": "LOS ABETOS",
+        "cityCode": "CIUDAD_23555000",
+        "departmentCode": "DPTO_CO_000023",
+        "countryCode": "PAIS_CO",
+        "authorizeReceiveOffers": "true",
+        "authorizeReceiveInfoViaSMS": "true",
+        "authorizeReceiveInfoViaEmail": "true"
+      },
+      {
+        "mdmKey": "18614634",
+        "addressClass": "CLASED_Z001",
+        "addressType": "MARCAC_XXDEFAULT",
+        "dateLastUpdate": "2010-03-21T00:00:00.0",
+        "address": "CR 6 15 52",
+        "cityCode": "CIUDAD_23555000",
+        "departmentCode": "DPTO_CO_000023",
+        "countryCode": "PAIS_CO",
+        "phoneNumber": "400000007767904",
+        "authorizeReceiveOffers": "true",
+        "authorizeReceiveInfoViaSMS": "true",
+        "authorizeReceiveInfoViaEmail": "true"
+      }
+    ]
+  },
+  "links": {
+    "self": "/v1/sales-services/customer-management/customer-reference-data-management/customer-contact/retrieve-contact-information"
+  }
+}
